@@ -5,5 +5,5 @@
 	<li>Difficulty on pop up</li>
 	<li>Save button</li>
 	<li>Score list</li>
-	<li>Name</li>
+	<li>Namel</li>
 </ul>
