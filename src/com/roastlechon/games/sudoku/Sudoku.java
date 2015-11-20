@@ -27,6 +27,10 @@ public class Sudoku extends JFrame {
 	int delay = 1000;
 	int time = 1;
 	
+	final JButton easyButton = new JButton("E");
+	final JButton mediumButton = new JButton("M");
+	final JButton hardButton = new JButton("H");
+	
 	final JFrame messageDialog = new JFrame();
 		
 	Timer timer;
@@ -49,9 +53,9 @@ public class Sudoku extends JFrame {
 			}
 		});
 		
-		generateButton.setLayout(null);
-		generateButton.setBounds(100, 200, 90, 20);
-		generateButton.addActionListener(new ActionListener() {
+		easyButton.setLayout(null);
+		easyButton.setBounds(100,200,30,20);
+		easyButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				finishButton.setEnabled(true);
 				panel.remove(board);
@@ -65,6 +69,56 @@ public class Sudoku extends JFrame {
 				transferFocus();
 			}
 		});
+		
+		mediumButton.setLayout(null);
+		mediumButton.setBounds(130,200,30,20);
+		mediumButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				finishButton.setEnabled(true);
+				panel.remove(board);
+				board = new Board(new GenerationAlgorithm().puzzle);
+				panel.add(board);
+				panel.revalidate();
+				panel.repaint();
+				timerField.setValue("0");
+				time = 1;
+				timer.restart();
+				transferFocus();
+			}
+		});
+		hardButton.setLayout(null);
+		hardButton.setBounds(160, 200, 30, 20);
+		hardButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				finishButton.setEnabled(true);
+				panel.remove(board);
+				board = new Board(new GenerationAlgorithm().puzzle);
+				panel.add(board);
+				panel.revalidate();
+				panel.repaint();
+				timerField.setValue("0");
+				time = 1;
+				timer.restart();
+				transferFocus();
+			}
+		});
+		
+		/*generateButton.setLayout(null);
+		generateButton.setBounds(100, 200, 45, 20);
+		generateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				finishButton.setEnabled(true);
+				panel.remove(board);
+				board = new Board(new GenerationAlgorithm().puzzle);
+				panel.add(board);
+				panel.revalidate();
+				panel.repaint();
+				timerField.setValue("0");
+				time = 1;
+				timer.restart();
+				transferFocus();
+			}
+		});*/
 		
 		finishButton.setLayout(null);
 		finishButton.setBounds(100, 225, 90, 20);
@@ -89,7 +143,10 @@ public class Sudoku extends JFrame {
 		panel.add(timerLabel);
 		panel.add(timerField);
 		panel.add(board);
-		panel.add(generateButton);
+		//panel.add(generateButton);
+		panel.add(mediumButton);
+		panel.add(hardButton);
+		panel.add(easyButton);
 		panel.add(finishButton);
 		
 		this.add(panel);
