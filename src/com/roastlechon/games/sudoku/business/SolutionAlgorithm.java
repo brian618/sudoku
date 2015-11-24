@@ -54,6 +54,12 @@ public class SolutionAlgorithm {
 	}
     }
 
+    /**
+     * Checks zones to see if valid
+     * 
+     * @param zoneSquares
+     * @return true if valid false otherwise
+     */
     public boolean areValidZones(List<Square> zoneSquares) {
 	boolean valid = true;
 	List<Square> zoneSquares1 = new ArrayList<Square>();
@@ -154,6 +160,12 @@ public class SolutionAlgorithm {
 	return valid;
     }
 
+    /**
+     * Checks if rows are valid
+     * 
+     * @param rowSquares
+     * @return true if valid, false otherwise
+     */
     public boolean areValidRows(List<Square> rowSquares) {
 	boolean valid = true;
 	List<Square> rowSquares1 = new ArrayList<Square>();
@@ -254,6 +266,12 @@ public class SolutionAlgorithm {
 	return valid;
     }
 
+    /**
+     * checks if columns are valid
+     * 
+     * @param colSquares
+     * @return returns true if valid and false otherise
+     */
     public boolean areValidCols(List<Square> colSquares) {
 	boolean valid = true;
 	List<Square> colSquares1 = new ArrayList<Square>();
@@ -354,6 +372,13 @@ public class SolutionAlgorithm {
 	return valid;
     }
 
+    /**
+     * Checks if the values in the given List<Square> are unique
+     * 
+     * @param zoneSquares,
+     *            List<Square> to be checked
+     * @return true if all values are unique and false otherwise
+     */
     public boolean isUnique(List<Square> zoneSquares) {
 	List<Integer> list = new ArrayList<Integer>();
 
