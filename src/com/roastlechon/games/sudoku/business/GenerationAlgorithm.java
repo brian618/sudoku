@@ -13,13 +13,15 @@ public class GenerationAlgorithm {
 
     public List<Square> squares;
     public List<List<Square>> puzzle;
+    //public int difficulty;
 
     /**
      * Constructor for GenerationAlgorithm
      */
-    public GenerationAlgorithm() {
+    public GenerationAlgorithm(int level) {
 	this.squares = generate();
-	this.puzzle = createPuzzle(this.squares);
+	this.puzzle = createPuzzle(this.squares, level);
+	//this.difficulty = level;
     }
 
     /**
@@ -110,44 +112,44 @@ public class GenerationAlgorithm {
      * @return List<List<Square>>, a list containing squares separated into 9,
      *         3x3 zones.
      */
-    public List<List<Square>> createPuzzle(List<Square> squares) {
+    public List<List<Square>> createPuzzle(List<Square> squares, int difficulty) {
 	List<List<Square>> zoneArray = new ArrayList<List<Square>>();
 
 	List<Square> zoneSquares1 = new ArrayList<Square>();
 	zoneSquares1 = getZoneSquares(squares, 1);
-	zoneSquares1 = removeSquaresFromZone(zoneSquares1, 4);
+	zoneSquares1 = removeSquaresFromZone(zoneSquares1, (4+difficulty));
 
 	List<Square> zoneSquares2 = new ArrayList<Square>();
 	zoneSquares2 = getZoneSquares(squares, 2);
-	zoneSquares2 = removeSquaresFromZone(zoneSquares2, 3);
+	zoneSquares2 = removeSquaresFromZone(zoneSquares2, (3+difficulty));
 
 	List<Square> zoneSquares3 = new ArrayList<Square>();
 	zoneSquares3 = getZoneSquares(squares, 3);
-	zoneSquares3 = removeSquaresFromZone(zoneSquares3, 2);
+	zoneSquares3 = removeSquaresFromZone(zoneSquares3, (4+difficulty));
 
 	List<Square> zoneSquares4 = new ArrayList<Square>();
 	zoneSquares4 = getZoneSquares(squares, 4);
-	zoneSquares4 = removeSquaresFromZone(zoneSquares4, 3);
+	zoneSquares4 = removeSquaresFromZone(zoneSquares4, (4+difficulty));
 
 	List<Square> zoneSquares5 = new ArrayList<Square>();
 	zoneSquares5 = getZoneSquares(squares, 5);
-	zoneSquares5 = removeSquaresFromZone(zoneSquares5, 5);
+	zoneSquares5 = removeSquaresFromZone(zoneSquares5, (1+3*difficulty));
 
 	List<Square> zoneSquares6 = new ArrayList<Square>();
 	zoneSquares6 = getZoneSquares(squares, 6);
-	zoneSquares6 = removeSquaresFromZone(zoneSquares6, 3);
+	zoneSquares6 = removeSquaresFromZone(zoneSquares6, (4+difficulty));
 
 	List<Square> zoneSquares7 = new ArrayList<Square>();
 	zoneSquares7 = getZoneSquares(squares, 7);
-	zoneSquares7 = removeSquaresFromZone(zoneSquares7, 2);
+	zoneSquares7 = removeSquaresFromZone(zoneSquares7, (4+difficulty));
 
 	List<Square> zoneSquares8 = new ArrayList<Square>();
 	zoneSquares8 = getZoneSquares(squares, 8);
-	zoneSquares8 = removeSquaresFromZone(zoneSquares8, 3);
+	zoneSquares8 = removeSquaresFromZone(zoneSquares8, (3+difficulty));
 
 	List<Square> zoneSquares9 = new ArrayList<Square>();
 	zoneSquares9 = getZoneSquares(squares, 9);
-	zoneSquares9 = removeSquaresFromZone(zoneSquares9, 4);
+	zoneSquares9 = removeSquaresFromZone(zoneSquares9, (4+difficulty));
 
 	zoneArray.add(zoneSquares1);
 	zoneArray.add(zoneSquares2);
