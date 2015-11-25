@@ -37,14 +37,14 @@ public class SolutionAlgorithm {
 		allSquares.add(square);
 	    }
 	}
-
 	this.valid = isValid(allSquares);
     }
 
     /**
      * Checks if the the zone squares are valid
      * 
-     * @param allSquares
+     * @param allSquares,
+     *            List<Square> with squares having values from 1 to 9
      * @return true if valid and false otherwise
      */
     public boolean isValid(List<Square> allSquares) {
@@ -157,7 +157,6 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-
 	}
 	return valid;
     }
