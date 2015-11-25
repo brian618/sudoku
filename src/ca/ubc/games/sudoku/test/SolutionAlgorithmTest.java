@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.roastlechon.games.sudoku.business.GenerationAlgorithm;
+import com.roastlechon.games.sudoku.business.SolutionAlgorithm;
 import com.roastlechon.games.sudoku.view.Board;
 
 public class SolutionAlgorithmTest {
@@ -16,8 +17,8 @@ public class SolutionAlgorithmTest {
     @Test
     public void testBoardIsComplete() {
 	// complete board
-	Board board = new Board(new GenerationAlgorithm().puzzle);
-	assertTrue(board.isComplete());
+	Board completeBoard = new Board(new GenerationAlgorithm().puzzle);
+	assertTrue(completeBoard.isComplete());
     }
 
     /**
@@ -26,7 +27,17 @@ public class SolutionAlgorithmTest {
     @Test
     public void testBoardIsNotComplete() {
 	// incomplete board
-	Board board2 = new Board(new GenerationAlgorithm(1).puzzle);
-	assertFalse(board2.isComplete());
+	Board incompleteBoard = new Board(new GenerationAlgorithm(1).puzzle);
+	assertFalse(incompleteBoard.isComplete());
+    }
+
+    /**
+     * Test areValidZones() with valid zones
+     */
+    @Test
+    public void testValidZones() {
+	Board validBoard = new Board(new GenerationAlgorithm().puzzle);
+	SolutionAlgorithm slnAlg = new SolutionAlgorithm(validBoard);
+	assertTrue(slnAlg.areValidZones(slnAlg.getAllSquares()));
     }
 }

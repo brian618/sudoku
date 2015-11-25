@@ -399,7 +399,7 @@ public class SolutionAlgorithm {
     /**
      * @return the list of squares in the puzzle
      */
-    public List<Square> getZoneSquares() {
+    public List<Square> getAllSquares() {
 	return allSquares;
     }
 
