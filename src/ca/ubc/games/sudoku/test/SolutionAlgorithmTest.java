@@ -113,6 +113,7 @@ public class SolutionAlgorithmTest {
     public void testInvalidCols() {
 	Board invalidColBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(invalidColBoard);
+
 	// index of column 1 row 1
 	Square c1r1 = new Square();
 	// index of column1 row 2
