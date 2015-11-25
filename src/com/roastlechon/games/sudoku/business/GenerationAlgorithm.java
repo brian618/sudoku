@@ -102,8 +102,8 @@ public class GenerationAlgorithm {
      */
     public boolean validSquare(List<Square> squares, Square square) {
 	for (int i = 0; i < squares.size(); i++) {
-	    if (squares.get(i).getRow() == square.getRow() | squares.get(i).getCol() == square.getCol()
-		    | squares.get(i).getZone() == square.getZone()) {
+	    if (squares.get(i).row == square.row | squares.get(i).col == square.col
+		    | squares.get(i).zone == square.zone) {
 		if (squares.get(i).getValue() == square.getValue()) {
 		    return false;
 		}
@@ -262,7 +262,7 @@ public class GenerationAlgorithm {
     public List<Square> getZoneSquares(List<Square> squares, int zone) {
 	List<Square> tempSquares = new ArrayList<Square>();
 	for (int i = 0; i < 81; i++) {
-	    if (squares.get(i).getZone() == zone) {
+	    if (squares.get(i).zone == zone) {
 		tempSquares.add(squares.get(i));
 	    }
 	}
