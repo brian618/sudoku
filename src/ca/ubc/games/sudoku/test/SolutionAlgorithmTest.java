@@ -94,7 +94,7 @@ public class SolutionAlgorithmTest {
     public void testValidCols() {
 	Board validColBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(validColBoard);
-	assertTrue(slnAlg.areValidRows());
+	assertTrue(slnAlg.areValidCols());
     }
 
     /**
@@ -114,6 +114,6 @@ public class SolutionAlgorithmTest {
 		valueColumn1Row1 = s.value;
 	    }
 	}
-	assertFalse(slnAlg.areValidRows());
+	assertFalse(slnAlg.areValidCols());
     }
 }
