@@ -64,7 +64,7 @@ public class Board extends JPanel {
     }
 
     /**
-     * Assertion to see if SolutionAlgorithm is valid
+     * Assertion to check if user's solution is correct
      * 
      * @return true of the algorithm is valid and false otherwise
      */

@@ -29,7 +29,8 @@ public class SolutionAlgorithm {
 		Square square = f.getSquare();
 		if (f.getValue() == null || f.getValue().equals(0)) {
 		    this.valid = false;
-		    break;
+		    System.out.print(square.getValue() + " ");
+		    return;
 		}
 		String value = (String) f.getValue();
 		square.setValue(Integer.valueOf(value));
