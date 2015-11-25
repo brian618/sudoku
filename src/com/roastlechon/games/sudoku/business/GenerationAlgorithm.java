@@ -104,7 +104,7 @@ public class GenerationAlgorithm {
 	for (int i = 0; i < squares.size(); i++) {
 	    if (squares.get(i).row == square.row | squares.get(i).col == square.col
 		    | squares.get(i).zone == square.zone) {
-		if (squares.get(i).getValue() == square.getValue()) {
+		if (squares.get(i).value == square.value) {
 		    return false;
 		}
 	    }

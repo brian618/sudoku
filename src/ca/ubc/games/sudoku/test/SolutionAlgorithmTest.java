@@ -3,7 +3,6 @@ package ca.ubc.games.sudoku.test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -78,11 +77,22 @@ public class SolutionAlgorithmTest {
 	Board invalidRowBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(invalidRowBoard);
 	// index of column 1 row 1
-	int c1r1 = 0;
+	Square c1r1 = new Square();
 	// index of column1 row 2
-	int c1r2 = 9;
+	Square c1r2 = new Square();
 	List<Square> allSquares = slnAlg.getAllSquares();
-	Collections.swap(allSquares, c1r1, c1r2);
+	for (Square s : allSquares) {
+	    if (s.col == 1 && s.row == 1) {
+		c1r1 = s;
+	    }
+	    if (s.col == 1 && s.row == 2) {
+		c1r2 = s;
+	    }
+	}
+	int swapVal1 = c1r1.value;
+	int swapVal2 = c1r2.value;
+	c1r1.value = swapVal2;
+	c1r2.value = swapVal1;
 	assertFalse(slnAlg.areValidRows());
     }
 
@@ -93,7 +103,7 @@ public class SolutionAlgorithmTest {
     public void testValidCols() {
 	Board validColBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(validColBoard);
-	assertTrue(slnAlg.areValidRows());
+	assertTrue(slnAlg.areValidCols());
     }
 
     /**
@@ -104,11 +114,22 @@ public class SolutionAlgorithmTest {
 	Board invalidColBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(invalidColBoard);
 	// index of column 1 row 1
-	int c1r1 = 0;
+	Square c1r1 = new Square();
 	// index of column1 row 2
-	int c2r1 = 1;
+	Square c2r1 = new Square();
 	List<Square> allSquares = slnAlg.getAllSquares();
-	Collections.swap(allSquares, c1r1, c2r1);
-	assertFalse(slnAlg.areValidRows());
+	for (Square s : allSquares) {
+	    if (s.col == 1 && s.row == 1) {
+		c1r1 = s;
+	    }
+	    if (s.col == 2 && s.row == 1) {
+		c2r1 = s;
+	    }
+	}
+	int swapVal1 = c1r1.value;
+	int swapVal2 = c2r1.value;
+	c1r1.value = swapVal2;
+	c2r1.value = swapVal1;
+	assertFalse(slnAlg.areValidCols());
     }
 }

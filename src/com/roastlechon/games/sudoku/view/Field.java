@@ -49,7 +49,7 @@ public class Field extends JFormattedTextField {
 	Dimension dimension = new Dimension(20, 20);
 	this.setPreferredSize(dimension);
 	this.setHorizontalAlignment(JFormattedTextField.CENTER);
-	if (square.getValue() == 0) {
+	if (square.value == 0) {
 	    this.setValue(null);
 	    this.setBorder(border);
 	    this.addKeyListener(new KeyListener() {
@@ -69,7 +69,7 @@ public class Field extends JFormattedTextField {
 
 	    });
 	} else {
-	    this.setValue(String.valueOf(square.getValue()));
+	    this.setValue(String.valueOf(square.value));
 	    this.setFocusable(false);
 	    this.setEditable(false);
 	    this.setBackground(new Color(240, 240, 240));

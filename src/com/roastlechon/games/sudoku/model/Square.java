@@ -160,11 +160,4 @@ public class Square {
 	return this.value + "";
     }
 
-    /**
-     * @return int value of the square
-     */
-    public int getValue() {
-	return this.value;
-    }
-
 }
