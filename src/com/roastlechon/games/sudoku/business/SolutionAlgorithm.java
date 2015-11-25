@@ -13,6 +13,7 @@ import com.roastlechon.games.sudoku.view.Zone;
 public class SolutionAlgorithm {
 
     public boolean valid = false;
+    private List<Square> allSquares;
 
     /**
      * Constructor for Solution Algorithm
@@ -21,7 +22,7 @@ public class SolutionAlgorithm {
      *            the Board of the Sudoku
      */
     public SolutionAlgorithm(Board board) {
-	List<Square> zoneSquares = new ArrayList<Square>();
+	allSquares = new ArrayList<Square>();
 	for (int i = 0; i < board.getComponents().length; i++) {
 	    Zone z = (Zone) board.getComponents()[i];
 	    for (int j = 0; j < z.getComponents().length; j++) {
@@ -29,26 +30,25 @@ public class SolutionAlgorithm {
 		Square square = f.getSquare();
 		if (f.getValue() == null || f.getValue().equals(0)) {
 		    this.valid = false;
-		    System.out.print(square.getValue() + " ");
 		    return;
 		}
 		String value = (String) f.getValue();
 		square.setValue(Integer.valueOf(value));
-		zoneSquares.add(square);
+		allSquares.add(square);
 	    }
 	}
 
-	this.valid = isValid(zoneSquares);
+	this.valid = isValid(allSquares);
     }
 
     /**
      * Checks if the the zone squares are valid
      * 
-     * @param zoneSquares
+     * @param allSquares
      * @return true if valid and false otherwise
      */
-    public boolean isValid(List<Square> zoneSquares) {
-	if (areValidZones(zoneSquares) && areValidCols(zoneSquares) && areValidRows(zoneSquares)) {
+    public boolean isValid(List<Square> allSquares) {
+	if (areValidZones(allSquares) && areValidCols(allSquares) && areValidRows(allSquares)) {
 	    return true;
 	} else {
 	    return false;
@@ -58,99 +58,100 @@ public class SolutionAlgorithm {
     /**
      * Checks zones to see if valid
      * 
-     * @param zoneSquares
+     * @param allSquares,
+     *            list of all squares in the puzzle
      * @return true if valid false otherwise
      */
-    public boolean areValidZones(List<Square> zoneSquares) {
+    public boolean areValidZones(List<Square> allSquares) {
 	boolean valid = true;
-	List<Square> zoneSquares1 = new ArrayList<Square>();
-	List<Square> zoneSquares2 = new ArrayList<Square>();
-	List<Square> zoneSquares3 = new ArrayList<Square>();
-	List<Square> zoneSquares4 = new ArrayList<Square>();
-	List<Square> zoneSquares5 = new ArrayList<Square>();
-	List<Square> zoneSquares6 = new ArrayList<Square>();
-	List<Square> zoneSquares7 = new ArrayList<Square>();
-	List<Square> zoneSquares8 = new ArrayList<Square>();
-	List<Square> zoneSquares9 = new ArrayList<Square>();
+	List<Square> zone1 = new ArrayList<Square>();
+	List<Square> zone2 = new ArrayList<Square>();
+	List<Square> zone3 = new ArrayList<Square>();
+	List<Square> zone4 = new ArrayList<Square>();
+	List<Square> zone5 = new ArrayList<Square>();
+	List<Square> zone6 = new ArrayList<Square>();
+	List<Square> zone7 = new ArrayList<Square>();
+	List<Square> zone8 = new ArrayList<Square>();
+	List<Square> zone9 = new ArrayList<Square>();
 
-	for (int i = 0; i < zoneSquares.size() && valid; i++) {
-	    Square zoneSquare = zoneSquares.get(i);
-	    if (zoneSquare.zone == 1) {
-		zoneSquares1.add(zoneSquare);
-		if (zoneSquares1.size() == 9) {
-		    valid = isUnique(zoneSquares1);
+	for (int i = 0; i < allSquares.size() && valid; i++) {
+	    Square square = allSquares.get(i);
+	    if (square.zone == 1) {
+		zone1.add(square);
+		if (zone1.size() == 9) {
+		    valid = isUnique(zone1);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (zoneSquare.zone == 2) {
-		zoneSquares2.add(zoneSquare);
-		if (zoneSquares2.size() == 9) {
-		    valid = isUnique(zoneSquares2);
+	    if (square.zone == 2) {
+		zone2.add(square);
+		if (zone2.size() == 9) {
+		    valid = isUnique(zone2);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (zoneSquare.zone == 3) {
-		zoneSquares3.add(zoneSquare);
-		if (zoneSquares3.size() == 9) {
-		    valid = isUnique(zoneSquares3);
+	    if (square.zone == 3) {
+		zone3.add(square);
+		if (zone3.size() == 9) {
+		    valid = isUnique(zone3);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (zoneSquare.zone == 4) {
-		zoneSquares4.add(zoneSquare);
-		if (zoneSquares4.size() == 9) {
-		    valid = isUnique(zoneSquares4);
+	    if (square.zone == 4) {
+		zone4.add(square);
+		if (zone4.size() == 9) {
+		    valid = isUnique(zone4);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (zoneSquare.zone == 5) {
-		zoneSquares5.add(zoneSquare);
-		if (zoneSquares5.size() == 9) {
-		    valid = isUnique(zoneSquares5);
+	    if (square.zone == 5) {
+		zone5.add(square);
+		if (zone5.size() == 9) {
+		    valid = isUnique(zone5);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (zoneSquare.zone == 6) {
-		zoneSquares6.add(zoneSquare);
-		if (zoneSquares6.size() == 9) {
-		    valid = isUnique(zoneSquares6);
+	    if (square.zone == 6) {
+		zone6.add(square);
+		if (zone6.size() == 9) {
+		    valid = isUnique(zone6);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (zoneSquare.zone == 7) {
-		zoneSquares7.add(zoneSquare);
-		if (zoneSquares7.size() == 9) {
-		    valid = isUnique(zoneSquares7);
+	    if (square.zone == 7) {
+		zone7.add(square);
+		if (zone7.size() == 9) {
+		    valid = isUnique(zone7);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (zoneSquare.zone == 8) {
-		zoneSquares8.add(zoneSquare);
-		if (zoneSquares8.size() == 9) {
-		    valid = isUnique(zoneSquares8);
+	    if (square.zone == 8) {
+		zone8.add(square);
+		if (zone8.size() == 9) {
+		    valid = isUnique(zone8);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (zoneSquare.zone == 9) {
-		zoneSquares9.add(zoneSquare);
-		if (zoneSquares9.size() == 9) {
-		    valid = isUnique(zoneSquares9);
+	    if (square.zone == 9) {
+		zone9.add(square);
+		if (zone9.size() == 9) {
+		    valid = isUnique(zone9);
 		    if (!valid) {
 			return false;
 		    }
@@ -380,19 +381,26 @@ public class SolutionAlgorithm {
      *            List<Square> to be checked
      * @return true if all values are unique and false otherwise
      */
-    public boolean isUnique(List<Square> zoneSquares) {
+    public boolean isUnique(List<Square> zone) {
 	List<Integer> list = new ArrayList<Integer>();
 
-	for (int i = 0; i < zoneSquares.size(); i++) {
-	    list.add(zoneSquares.get(i).value);
+	for (int i = 0; i < zone.size(); i++) {
+	    list.add(zone.get(i).value);
 	}
 
 	Set<Integer> set = new HashSet<Integer>(list);
-	if (set.size() < zoneSquares.size()) {
+	if (set.size() < zone.size()) {
 	    return false;
 	} else {
 	    return true;
 	}
+    }
+
+    /**
+     * @return the list of squares in the puzzle
+     */
+    public List<Square> getZoneSquares() {
+	return allSquares;
     }
 
 }
