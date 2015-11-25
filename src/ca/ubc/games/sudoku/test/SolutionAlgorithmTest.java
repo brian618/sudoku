@@ -12,6 +12,6 @@ public class SolutionAlgorithmTest {
      */
     @Test
     public void testAreValidZones(){
-	Board board = new Board(new GenerationAlgorithm().puzzle);
+	Board board = new Board(new GenerationAlgorithm(0).puzzle);
     }
 }
