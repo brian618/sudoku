@@ -39,7 +39,7 @@ public class SolutionAlgorithmTest {
     public void testValidZones() {
 	Board validZoneBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(validZoneBoard);
-	assertTrue(slnAlg.areValidZones(slnAlg.getAllSquares()));
+	assertTrue(slnAlg.areValidZones());
     }
 
     /**
@@ -54,7 +54,7 @@ public class SolutionAlgorithmTest {
 		s.value = 9;
 	    }
 	}
-	assertFalse(slnAlg.areValidZones(slnAlg.getAllSquares()));
+	assertFalse(slnAlg.areValidZones());
     }
 
     /**
@@ -64,7 +64,7 @@ public class SolutionAlgorithmTest {
     public void testValidRows() {
 	Board validRowBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(validRowBoard);
-	assertTrue(slnAlg.areValidRows(slnAlg.getAllSquares()));
+	assertTrue(slnAlg.areValidRows());
     }
 
     /**
@@ -84,7 +84,7 @@ public class SolutionAlgorithmTest {
 		valueColumn1Row1 = s.value;
 	    }
 	}
-	assertFalse(slnAlg.areValidRows(slnAlg.getAllSquares()));
+	assertFalse(slnAlg.areValidRows());
     }
 
     /**
@@ -94,7 +94,7 @@ public class SolutionAlgorithmTest {
     public void testValidCols() {
 	Board validColBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(validColBoard);
-	assertTrue(slnAlg.areValidRows(slnAlg.getAllSquares()));
+	assertTrue(slnAlg.areValidRows());
     }
 
     /**
@@ -114,6 +114,6 @@ public class SolutionAlgorithmTest {
 		valueColumn1Row1 = s.value;
 	    }
 	}
-	assertFalse(slnAlg.areValidRows(slnAlg.getAllSquares()));
+	assertFalse(slnAlg.areValidRows());
     }
 }

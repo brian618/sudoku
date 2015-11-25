@@ -37,7 +37,7 @@ public class SolutionAlgorithm {
 		allSquares.add(square);
 	    }
 	}
-	this.valid = isValid(allSquares);
+	this.valid = isValid();
     }
 
     /**
@@ -47,8 +47,8 @@ public class SolutionAlgorithm {
      *            List<Square> with squares having values from 1 to 9
      * @return true if valid and false otherwise
      */
-    public boolean isValid(List<Square> allSquares) {
-	if (areValidZones(allSquares) && areValidCols(allSquares) && areValidRows(allSquares)) {
+    public boolean isValid() {
+	if (areValidZones() && areValidCols() && areValidRows()) {
 	    return true;
 	} else {
 	    return false;
@@ -62,7 +62,7 @@ public class SolutionAlgorithm {
      *            list of all squares in the puzzle
      * @return true if valid false otherwise
      */
-    public boolean areValidZones(List<Square> allSquares) {
+    public boolean areValidZones() {
 	boolean valid = true;
 	List<Square> zone1 = new ArrayList<Square>();
 	List<Square> zone2 = new ArrayList<Square>();
@@ -164,10 +164,11 @@ public class SolutionAlgorithm {
     /**
      * Checks if rows are valid
      * 
-     * @param rowSquares
+     * @param allSquares,
+     *            list of all squares in the puzzle
      * @return true if valid, false otherwise
      */
-    public boolean areValidRows(List<Square> rowSquares) {
+    public boolean areValidRows() {
 	boolean valid = true;
 	List<Square> rowSquares1 = new ArrayList<Square>();
 	List<Square> rowSquares2 = new ArrayList<Square>();
@@ -179,8 +180,8 @@ public class SolutionAlgorithm {
 	List<Square> rowSquares8 = new ArrayList<Square>();
 	List<Square> rowSquares9 = new ArrayList<Square>();
 
-	for (int i = 0; i < rowSquares.size() && valid; i++) {
-	    Square rowSquare = rowSquares.get(i);
+	for (int i = 0; i < allSquares.size() && valid; i++) {
+	    Square rowSquare = allSquares.get(i);
 	    if (rowSquare.zone == 1) {
 		rowSquares1.add(rowSquare);
 		if (rowSquares1.size() == 9) {
@@ -270,10 +271,9 @@ public class SolutionAlgorithm {
     /**
      * checks if columns are valid
      * 
-     * @param colSquares
      * @return returns true if valid and false otherise
      */
-    public boolean areValidCols(List<Square> colSquares) {
+    public boolean areValidCols() {
 	boolean valid = true;
 	List<Square> colSquares1 = new ArrayList<Square>();
 	List<Square> colSquares2 = new ArrayList<Square>();
@@ -285,8 +285,8 @@ public class SolutionAlgorithm {
 	List<Square> colSquares8 = new ArrayList<Square>();
 	List<Square> colSquares9 = new ArrayList<Square>();
 
-	for (int i = 0; i < colSquares.size() && valid; i++) {
-	    Square colSquare = colSquares.get(i);
+	for (int i = 0; i < allSquares.size() && valid; i++) {
+	    Square colSquare = allSquares.get(i);
 	    if (colSquare.zone == 1) {
 		colSquares1.add(colSquare);
 		if (colSquares1.size() == 9) {
