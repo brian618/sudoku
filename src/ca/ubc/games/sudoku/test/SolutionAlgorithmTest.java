@@ -3,6 +3,9 @@ package ca.ubc.games.sudoku.test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.Test;
 
 import com.roastlechon.games.sudoku.business.GenerationAlgorithm;
@@ -74,16 +77,12 @@ public class SolutionAlgorithmTest {
     public void testInvalidRows() {
 	Board invalidRowBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(invalidRowBoard);
-	int valueColumn1Row1;
-	int valueColum1Row2;
-	for (Square s : slnAlg.getAllSquares()) {
-	    if (s.col == 1 && s.row == 1) {
-		valueColumn1Row1 = s.value;
-	    }
-	    if (s.col == 1 && s.row == 2) {
-		valueColumn1Row1 = s.value;
-	    }
-	}
+	// index of column 1 row 1
+	int c1r1 = 0;
+	// index of column1 row 2
+	int c1r2 = 9;
+	List<Square> allSquares = slnAlg.getAllSquares();
+	Collections.swap(allSquares, c1r1, c1r2);
 	assertFalse(slnAlg.areValidRows());
     }
 
@@ -104,16 +103,13 @@ public class SolutionAlgorithmTest {
     public void testInvalidCols() {
 	Board invalidColBoard = new Board(new GenerationAlgorithm().puzzle);
 	SolutionAlgorithm slnAlg = new SolutionAlgorithm(invalidColBoard);
-	int valueColumn1Row1;
-	int valueColum2Row1;
-	for (Square s : slnAlg.getAllSquares()) {
-	    if (s.col == 1 && s.row == 1) {
-		valueColumn1Row1 = s.value;
-	    }
-	    if (s.col == 2 && s.row == 1) {
-		valueColumn1Row1 = s.value;
-	    }
-	}
-	assertFalse(slnAlg.areValidCols());
+
+	// index of column 1 row 1
+	int c1r1 = 0;
+	// index of column1 row 2
+	int c2r1 = 1;
+	List<Square> allSquares = slnAlg.getAllSquares();
+	Collections.swap(allSquares, c1r1, c2r1);
+	assertFalse(slnAlg.areValidRows());
     }
 }

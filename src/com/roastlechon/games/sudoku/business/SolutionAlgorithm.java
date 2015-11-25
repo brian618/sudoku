@@ -181,18 +181,22 @@ public class SolutionAlgorithm {
 	List<Square> rowSquares9 = new ArrayList<Square>();
 
 	for (int i = 0; i < allSquares.size() && valid; i++) {
-	    Square rowSquare = allSquares.get(i);
-	    if (rowSquare.zone == 1) {
-		rowSquares1.add(rowSquare);
+	    Square square = allSquares.get(i);
+	    if (square.row == 1) {
+		rowSquares1.add(square);
 		if (rowSquares1.size() == 9) {
+		    System.out.println("row 1: ");
+		    for (int j = 0; j < rowSquares1.size(); j++) {
+			System.out.println(rowSquares1.get(j));
+		    }
 		    valid = isUnique(rowSquares1);
 		    if (!valid) {
 			return false;
 		    }
 		}
 	    }
-	    if (rowSquare.zone == 2) {
-		rowSquares2.add(rowSquare);
+	    if (square.row == 2) {
+		rowSquares2.add(square);
 		if (rowSquares2.size() == 9) {
 		    valid = isUnique(rowSquares2);
 		    if (!valid) {
@@ -200,8 +204,8 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (rowSquare.zone == 3) {
-		rowSquares3.add(rowSquare);
+	    if (square.row == 3) {
+		rowSquares3.add(square);
 		if (rowSquares3.size() == 9) {
 		    valid = isUnique(rowSquares3);
 		    if (!valid) {
@@ -209,8 +213,8 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (rowSquare.zone == 4) {
-		rowSquares4.add(rowSquare);
+	    if (square.row == 4) {
+		rowSquares4.add(square);
 		if (rowSquares4.size() == 9) {
 		    valid = isUnique(rowSquares4);
 		    if (!valid) {
@@ -218,8 +222,8 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (rowSquare.zone == 5) {
-		rowSquares5.add(rowSquare);
+	    if (square.row == 5) {
+		rowSquares5.add(square);
 		if (rowSquares5.size() == 9) {
 		    valid = isUnique(rowSquares5);
 		    if (!valid) {
@@ -227,8 +231,8 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (rowSquare.zone == 6) {
-		rowSquares6.add(rowSquare);
+	    if (square.row == 6) {
+		rowSquares6.add(square);
 		if (rowSquares6.size() == 9) {
 		    valid = isUnique(rowSquares6);
 		    if (!valid) {
@@ -236,8 +240,8 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (rowSquare.zone == 7) {
-		rowSquares7.add(rowSquare);
+	    if (square.row == 7) {
+		rowSquares7.add(square);
 		if (rowSquares7.size() == 9) {
 		    valid = isUnique(rowSquares7);
 		    if (!valid) {
@@ -245,8 +249,8 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (rowSquare.zone == 8) {
-		rowSquares8.add(rowSquare);
+	    if (square.row == 8) {
+		rowSquares8.add(square);
 		if (rowSquares8.size() == 9) {
 		    valid = isUnique(rowSquares8);
 		    if (!valid) {
@@ -254,8 +258,8 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (rowSquare.zone == 9) {
-		rowSquares9.add(rowSquare);
+	    if (square.row == 9) {
+		rowSquares9.add(square);
 		if (rowSquares9.size() == 9) {
 		    valid = isUnique(rowSquares9);
 		    if (!valid) {
@@ -287,7 +291,7 @@ public class SolutionAlgorithm {
 
 	for (int i = 0; i < allSquares.size() && valid; i++) {
 	    Square colSquare = allSquares.get(i);
-	    if (colSquare.zone == 1) {
+	    if (colSquare.col == 1) {
 		colSquares1.add(colSquare);
 		if (colSquares1.size() == 9) {
 		    valid = isUnique(colSquares1);
@@ -296,7 +300,7 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (colSquare.zone == 2) {
+	    if (colSquare.col == 2) {
 		colSquares2.add(colSquare);
 		if (colSquares2.size() == 9) {
 		    valid = isUnique(colSquares2);
@@ -305,7 +309,7 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (colSquare.zone == 3) {
+	    if (colSquare.col == 3) {
 		colSquares3.add(colSquare);
 		if (colSquares3.size() == 9) {
 		    valid = isUnique(colSquares3);
@@ -314,7 +318,7 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (colSquare.zone == 4) {
+	    if (colSquare.col == 4) {
 		colSquares4.add(colSquare);
 		if (colSquares4.size() == 9) {
 		    valid = isUnique(colSquares4);
@@ -323,7 +327,7 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (colSquare.zone == 5) {
+	    if (colSquare.col == 5) {
 		colSquares5.add(colSquare);
 		if (colSquares5.size() == 9) {
 		    valid = isUnique(colSquares5);
@@ -332,7 +336,7 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (colSquare.zone == 6) {
+	    if (colSquare.col == 6) {
 		colSquares6.add(colSquare);
 		if (colSquares6.size() == 9) {
 		    valid = isUnique(colSquares6);
@@ -341,7 +345,7 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (colSquare.zone == 7) {
+	    if (colSquare.col == 7) {
 		colSquares7.add(colSquare);
 		if (colSquares7.size() == 9) {
 		    valid = isUnique(colSquares7);
@@ -350,7 +354,7 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (colSquare.zone == 8) {
+	    if (colSquare.col == 8) {
 		colSquares8.add(colSquare);
 		if (colSquares8.size() == 9) {
 		    valid = isUnique(colSquares8);
@@ -359,7 +363,7 @@ public class SolutionAlgorithm {
 		    }
 		}
 	    }
-	    if (colSquare.zone == 9) {
+	    if (colSquare.col == 9) {
 		colSquares9.add(colSquare);
 		if (colSquares9.size() == 9) {
 		    valid = isUnique(colSquares9);
@@ -380,15 +384,15 @@ public class SolutionAlgorithm {
      *            List<Square> to be checked
      * @return true if all values are unique and false otherwise
      */
-    public boolean isUnique(List<Square> zone) {
+    public boolean isUnique(List<Square> squares) {
 	List<Integer> list = new ArrayList<Integer>();
 
-	for (int i = 0; i < zone.size(); i++) {
-	    list.add(zone.get(i).getValue());
+	for (int i = 0; i < squares.size(); i++) {
+	    list.add(squares.get(i).getValue());
 	}
 
 	Set<Integer> set = new HashSet<Integer>(list);
-	if (set.size() < zone.size()) {
+	if (set.size() < squares.size()) {
 	    return false;
 	} else {
 	    return true;
