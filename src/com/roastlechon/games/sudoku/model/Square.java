@@ -2,11 +2,10 @@ package com.roastlechon.games.sudoku.model;
 
 public class Square {
 
-    public int row;
-    public int col;
-    public int zone;
-    public int value;
-    public int index;
+    private int row;
+    private int col;
+    private int zone;
+    private int value;
 
     /**
      * Constructor for square
@@ -25,11 +24,10 @@ public class Square {
      */
     public Square(int index, int value) {
 	int n = index + 1;
-	this.index = index;
 	this.value = value;
-	row = getRow(n);
-	col = getCol(n);
-	zone = getZone(n);
+	setRow(getRow(n));
+	setCol(getCol(n));
+	setZone(getZone(n));
     }
 
     /**
@@ -165,6 +163,30 @@ public class Square {
      */
     public int getValue() {
 	return this.value;
+    }
+
+    public int getRow() {
+	return row;
+    }
+
+    public void setRow(int row) {
+	this.row = row;
+    }
+
+    public int getCol() {
+	return col;
+    }
+
+    public void setCol(int col) {
+	this.col = col;
+    }
+
+    public int getZone() {
+	return zone;
+    }
+
+    public void setZone(int zone) {
+	this.zone = zone;
     }
 
 }

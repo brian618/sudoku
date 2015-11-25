@@ -17,9 +17,9 @@ public class Field extends JFormattedTextField {
 
     private static final long serialVersionUID = 8031599756854199153L;
 
-    Border border = BorderFactory.createLineBorder(new Color(210,210,210));
-    		//.createEtchedBorder();
-    		//createEmptyBorder();
+    Border border = BorderFactory.createLineBorder(new Color(210, 210, 210));
+    // .createEtchedBorder();
+    // createEmptyBorder();
     Square square;
 
     /**
@@ -49,7 +49,7 @@ public class Field extends JFormattedTextField {
 	Dimension dimension = new Dimension(20, 20);
 	this.setPreferredSize(dimension);
 	this.setHorizontalAlignment(JFormattedTextField.CENTER);
-	if (square.value == 0) {
+	if (square.getValue() == 0) {
 	    this.setValue(null);
 	    this.setBorder(border);
 	    this.addKeyListener(new KeyListener() {
@@ -69,7 +69,7 @@ public class Field extends JFormattedTextField {
 
 	    });
 	} else {
-	    this.setValue(String.valueOf(square.value));
+	    this.setValue(String.valueOf(square.getValue()));
 	    this.setFocusable(false);
 	    this.setEditable(false);
 	    this.setBackground(new Color(240, 240, 240));
