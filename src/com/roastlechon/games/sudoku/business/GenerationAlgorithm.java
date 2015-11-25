@@ -13,7 +13,7 @@ public class GenerationAlgorithm {
 
     public List<Square> squares;
     public List<List<Square>> puzzle;
-    //public int difficulty;
+    // public int difficulty;
 
     /**
      * Constructor for GenerationAlgorithm
@@ -21,7 +21,15 @@ public class GenerationAlgorithm {
     public GenerationAlgorithm(int level) {
 	this.squares = generate();
 	this.puzzle = createPuzzle(this.squares, level);
-	//this.difficulty = level;
+	// this.difficulty = level;
+    }
+
+    /**
+     * Generates a complete sudoku with no blanks
+     */
+    public GenerationAlgorithm() {
+	this.squares = generate();
+	this.puzzle = createPuzzle(this.squares);
     }
 
     /**
@@ -117,39 +125,90 @@ public class GenerationAlgorithm {
 
 	List<Square> zoneSquares1 = new ArrayList<Square>();
 	zoneSquares1 = getZoneSquares(squares, 1);
-	zoneSquares1 = removeSquaresFromZone(zoneSquares1, (4+difficulty));
+	zoneSquares1 = removeSquaresFromZone(zoneSquares1, (4 + difficulty));
 
 	List<Square> zoneSquares2 = new ArrayList<Square>();
 	zoneSquares2 = getZoneSquares(squares, 2);
-	zoneSquares2 = removeSquaresFromZone(zoneSquares2, (3+difficulty));
+	zoneSquares2 = removeSquaresFromZone(zoneSquares2, (3 + difficulty));
 
 	List<Square> zoneSquares3 = new ArrayList<Square>();
 	zoneSquares3 = getZoneSquares(squares, 3);
-	zoneSquares3 = removeSquaresFromZone(zoneSquares3, (4+difficulty));
+	zoneSquares3 = removeSquaresFromZone(zoneSquares3, (4 + difficulty));
 
 	List<Square> zoneSquares4 = new ArrayList<Square>();
 	zoneSquares4 = getZoneSquares(squares, 4);
-	zoneSquares4 = removeSquaresFromZone(zoneSquares4, (4+difficulty));
+	zoneSquares4 = removeSquaresFromZone(zoneSquares4, (4 + difficulty));
 
 	List<Square> zoneSquares5 = new ArrayList<Square>();
 	zoneSquares5 = getZoneSquares(squares, 5);
-	zoneSquares5 = removeSquaresFromZone(zoneSquares5, (1+3*difficulty));
+	zoneSquares5 = removeSquaresFromZone(zoneSquares5, (1 + 3 * difficulty));
 
 	List<Square> zoneSquares6 = new ArrayList<Square>();
 	zoneSquares6 = getZoneSquares(squares, 6);
-	zoneSquares6 = removeSquaresFromZone(zoneSquares6, (4+difficulty));
+	zoneSquares6 = removeSquaresFromZone(zoneSquares6, (4 + difficulty));
 
 	List<Square> zoneSquares7 = new ArrayList<Square>();
 	zoneSquares7 = getZoneSquares(squares, 7);
-	zoneSquares7 = removeSquaresFromZone(zoneSquares7, (4+difficulty));
+	zoneSquares7 = removeSquaresFromZone(zoneSquares7, (4 + difficulty));
 
 	List<Square> zoneSquares8 = new ArrayList<Square>();
 	zoneSquares8 = getZoneSquares(squares, 8);
-	zoneSquares8 = removeSquaresFromZone(zoneSquares8, (3+difficulty));
+	zoneSquares8 = removeSquaresFromZone(zoneSquares8, (3 + difficulty));
 
 	List<Square> zoneSquares9 = new ArrayList<Square>();
 	zoneSquares9 = getZoneSquares(squares, 9);
-	zoneSquares9 = removeSquaresFromZone(zoneSquares9, (4+difficulty));
+	zoneSquares9 = removeSquaresFromZone(zoneSquares9, (4 + difficulty));
+
+	zoneArray.add(zoneSquares1);
+	zoneArray.add(zoneSquares2);
+	zoneArray.add(zoneSquares3);
+	zoneArray.add(zoneSquares4);
+	zoneArray.add(zoneSquares5);
+	zoneArray.add(zoneSquares6);
+	zoneArray.add(zoneSquares7);
+	zoneArray.add(zoneSquares8);
+	zoneArray.add(zoneSquares9);
+
+	return zoneArray;
+    }
+
+    /**
+     * Creates a complete Sudoku puzzle with no blanks
+     * 
+     * @param squares,
+     *            list of all squares in the puzzle
+     * @return List<List<Square>>, a list containing squares separated into 9,
+     *         3x3 zones.
+     */
+    public List<List<Square>> createPuzzle(List<Square> squares) {
+	List<List<Square>> zoneArray = new ArrayList<List<Square>>();
+
+	List<Square> zoneSquares1 = new ArrayList<Square>();
+	zoneSquares1 = getZoneSquares(squares, 1);
+
+	List<Square> zoneSquares2 = new ArrayList<Square>();
+	zoneSquares2 = getZoneSquares(squares, 2);
+
+	List<Square> zoneSquares3 = new ArrayList<Square>();
+	zoneSquares3 = getZoneSquares(squares, 3);
+
+	List<Square> zoneSquares4 = new ArrayList<Square>();
+	zoneSquares4 = getZoneSquares(squares, 4);
+
+	List<Square> zoneSquares5 = new ArrayList<Square>();
+	zoneSquares5 = getZoneSquares(squares, 5);
+
+	List<Square> zoneSquares6 = new ArrayList<Square>();
+	zoneSquares6 = getZoneSquares(squares, 6);
+
+	List<Square> zoneSquares7 = new ArrayList<Square>();
+	zoneSquares7 = getZoneSquares(squares, 7);
+
+	List<Square> zoneSquares8 = new ArrayList<Square>();
+	zoneSquares8 = getZoneSquares(squares, 8);
+
+	List<Square> zoneSquares9 = new ArrayList<Square>();
+	zoneSquares9 = getZoneSquares(squares, 9);
 
 	zoneArray.add(zoneSquares1);
 	zoneArray.add(zoneSquares2);
@@ -207,12 +266,12 @@ public class GenerationAlgorithm {
 		tempSquares.add(squares.get(i));
 	    }
 	}
-	System.out.println(tempSquares.toString());
+	// System.out.println(tempSquares.toString());
 	return tempSquares;
     }
 
     /**
-     * @return Integer[] of 9 random numbers from 1 to 9
+     * @return Integer[] of 9 random unique numbers from 1 to 9
      */
     public static Integer[] createArrayOfNineRandomNumbers() {
 	Integer[] randomArray = new Integer[9];
