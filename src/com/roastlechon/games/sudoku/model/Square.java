@@ -35,7 +35,7 @@ public class Square {
     /**
      * @param index,
      *            of the square
-     * @return int, the column that the square is contained in
+     * @return int, the column that the square is contained in (1 to 9)
      */
     private static int getCol(int index) {
 	int row = 0;
