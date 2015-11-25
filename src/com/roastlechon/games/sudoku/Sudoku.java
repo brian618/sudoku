@@ -32,6 +32,10 @@ public class Sudoku extends JFrame {
     final JButton hardButton = new JButton("H");
 
     final JFrame messageDialog = new JFrame();
+    
+    final int HARD = 2;
+    final int MEDIUM = 1;
+    final int EASY = 0;
 
     Timer timer;
 
@@ -62,7 +66,7 @@ public class Sudoku extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
 		panel.remove(board);
-		board = new Board(new GenerationAlgorithm().puzzle);
+		board = new Board(new GenerationAlgorithm(EASY).puzzle);
 		panel.add(board);
 		panel.revalidate();
 		panel.repaint();
@@ -79,7 +83,7 @@ public class Sudoku extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
 		panel.remove(board);
-		board = new Board(new GenerationAlgorithm().puzzle);
+		board = new Board(new GenerationAlgorithm(MEDIUM).puzzle);
 		panel.add(board);
 		panel.revalidate();
 		panel.repaint();
@@ -95,7 +99,7 @@ public class Sudoku extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
 		panel.remove(board);
-		board = new Board(new GenerationAlgorithm().puzzle);
+		board = new Board(new GenerationAlgorithm(HARD).puzzle);
 		panel.add(board);
 		panel.revalidate();
 		panel.repaint();
