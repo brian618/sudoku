@@ -3,6 +3,12 @@ package com.roastlechon.games.sudoku;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -21,7 +27,7 @@ public class Sudoku extends JFrame {
     final JButton generateButton = new JButton("Generate");
     final JButton finishButton = new JButton("Finish");
     JFormattedTextField timerField = new JFormattedTextField();
-    final JLabel timerLabel = new JLabel("Time Elapsed");
+    final JLabel timerLabel = new JLabel("Timer");
     JPanel panel = new JPanel();
     Board board = new Board();
     int delay = 1000;
@@ -30,6 +36,7 @@ public class Sudoku extends JFrame {
     final JButton easyButton = new JButton("E");
     final JButton mediumButton = new JButton("M");
     final JButton hardButton = new JButton("H");
+    final JLabel lastTime = new JLabel(" ");
 
     final JFrame messageDialog = new JFrame();
     
@@ -43,14 +50,19 @@ public class Sudoku extends JFrame {
      * Constructor for Sudoku
      */
     public Sudoku() {
+    
+    	readFile();
+    lastTime.setLayout(null);
+    lastTime.setBounds(10,200,80,20);
+    
 	timerLabel.setLayout(null);
-	timerLabel.setBounds(10, 200, 80, 20);
+	timerLabel.setBounds(10, 225, 40, 20);
 
 	timerField.setHorizontalAlignment(JFormattedTextField.CENTER);
 	timerField.setLayout(null);
 	timerField.setEnabled(true);
 	timerField.setEditable(false);
-	timerField.setBounds(10, 225, 60, 20);
+	timerField.setBounds(45, 225, 50, 20);
 	timerField.setValue("0");
 	timerField.setForeground(Color.BLACK);
 
@@ -65,6 +77,7 @@ public class Sudoku extends JFrame {
 	easyButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
+		readFile();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(EASY).puzzle);
 		panel.add(board);
@@ -82,6 +95,7 @@ public class Sudoku extends JFrame {
 	mediumButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
+		readFile();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(MEDIUM).puzzle);
 		panel.add(board);
@@ -98,6 +112,7 @@ public class Sudoku extends JFrame {
 	hardButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
+		readFile();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(HARD).puzzle);
 		panel.add(board);
@@ -131,7 +146,14 @@ public class Sudoku extends JFrame {
 			timer.stop();
 			JOptionPane.showMessageDialog(messageDialog, "Congratulations, you finished the puzzle in "
 				+ timerField.getValue() + " seconds. Click Generate to play again.");
-		    } else {
+		    //save into scores.txt
+			try(PrintWriter output = new PrintWriter(new FileWriter("scores.txt",true))) 
+			{
+			    output.printf("%s\r\n", timerField.getValue());
+			} 
+			catch (Exception e1) {}
+		    } 
+		    else {
 			JOptionPane.showMessageDialog(messageDialog,
 				"The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
 		    }
@@ -151,6 +173,7 @@ public class Sudoku extends JFrame {
 	panel.add(hardButton);
 	panel.add(easyButton);
 	panel.add(finishButton);
+	panel.add(lastTime);
 
 	this.add(panel);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -163,5 +186,35 @@ public class Sudoku extends JFrame {
 
     public static void main(String[] args) {
 	new Sudoku();
+    }
+    
+    /**
+     * Read scores.txt to get the time from the last game played.
+     */
+    private void readFile(){
+        String last_time=null;
+        try{
+	        FileReader fileReader = new FileReader("scores.txt");
+	        BufferedReader bufferedReader = new BufferedReader(fileReader);
+	        
+		    String line = bufferedReader.readLine();
+		    while(line !=null) {
+		    	if(line.length() > 0){
+		    		last_time = line;
+		    	}
+		    	line = bufferedReader.readLine();
+		    } 
+		    bufferedReader.close(); 
+		    lastTime.setText("last t: " + last_time+"s");
+        }
+	    catch(FileNotFoundException ex) {
+	        System.out.println(
+	            "Unable to open file");                
+	    }
+	    catch(IOException ex) {
+	        System.out.println(
+	            "Error reading file ");                  
+	    }
+    	
     }
 }
