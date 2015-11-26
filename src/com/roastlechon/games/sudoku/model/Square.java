@@ -1,7 +1,14 @@
 package com.roastlechon.games.sudoku.model;
 
-public class Square {
+import java.io.Serializable;
 
+public class Square implements Serializable {
+
+    
+    /**
+     * Serialization of the square for saving
+     */
+    private static final long serialVersionUID = -1699695250417443410L;
     public int row;
     public int col;
     public int zone;
@@ -107,37 +114,6 @@ public class Square {
 	this.value = value;
     }
 
-    public static void main(String[] args) {
-
-	/*
-	 * System.out.println("Index 6 is in column " + getCol(6));
-	 * System.out.println("Index 9 is in column " + getCol(9));
-	 * System.out.println("Index 10 is in column " + getCol(10));
-	 * 
-	 * System.out.println("Index 5 is in row " + getRow(5));
-	 * System.out.println("Index 36 is in row " + getRow(36));
-	 * System.out.println("Index 9 is in row " + getRow(9));
-	 * System.out.println("Index 10 is in row " + getRow(10));
-	 * System.out.println("Index 22 is in row " + getRow(22));
-	 * System.out.println("Index 81 is in row " + getRow(81));
-	 * 
-	 * System.out.println("Index is 1 " + getZone(1)); System.out.println(
-	 * "Index is 8 " + getZone(8)); System.out.println("Index is 6 " +
-	 * getZone(6)); System.out.println("Index is 12 " + getZone(12));
-	 * System.out.println("Index is 28 " + getZone(28)); System.out.println(
-	 * "Index is 57 " + getZone(57)); System.out.println("Index is 73 " +
-	 * getZone(73)); System.out.println("Index is 81 " + getZone(81));
-	 */
-
-	/*
-	 * Square square = new Square(0, 4); System.out.println(
-	 * "Index 0, value 4 is column " + square.col); System.out.println(
-	 * "Index 0, value 4 is value " + square.value); System.out.println(
-	 * "Index 0, value 4 is row " + square.row); System.out.println(
-	 * "Index 0, value 4 is index " + square.index);
-	 */
-    }
-
     /**
      * Check for equality
      * 
@@ -157,7 +133,7 @@ public class Square {
      * @return string, the value of the square
      */
     public String toString() {
-	return this.value + "";
+	return "Square [row = " + row + ", col = " + col + ", zone = " + zone + ", value = " + value;
     }
 
 }
