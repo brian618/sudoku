@@ -27,7 +27,7 @@ public class Sudoku extends JFrame {
     final JButton generateButton = new JButton("Generate");
     final JButton finishButton = new JButton("Finish");
     JFormattedTextField timerField = new JFormattedTextField();
-    final JLabel timerLabel = new JLabel("Timer");
+    final JLabel timerLabel = new JLabel("Time Elapsed");
     JPanel panel = new JPanel();
     Board board = new Board();
     int delay = 1000;
@@ -53,18 +53,16 @@ public class Sudoku extends JFrame {
     
     	readFile();
     lastTime.setLayout(null);
-    lastTime.setBounds(10,200,80,20);
+    lastTime.setBounds(10,305,150,20);
     
 	timerLabel.setLayout(null);
-	//timerLabel.setBounds(10, 225, 40, 20);
-	timerLabel.setBounds(7, 305, 75, 20);
+	timerLabel.setBounds(10, 330, 85, 20);
 
 	timerField.setHorizontalAlignment(JFormattedTextField.CENTER);
 	timerField.setLayout(null);
 	timerField.setEnabled(true);
 	timerField.setEditable(false);
-	//timerField.setBounds(45, 225, 50, 20);
-	timerField.setBounds(10, 330, 59, 20);
+	timerField.setBounds(95, 330, 59, 20);
 	timerField.setValue("0");
 	timerField.setForeground(Color.BLACK);
 
@@ -138,7 +136,7 @@ public class Sudoku extends JFrame {
 	 */
 
 	finishButton.setLayout(null);
-	finishButton.setBounds(165, 330, 136, 20);
+	finishButton.setBounds(257, 330, 45, 20);
 	finishButton.setEnabled(false);
 	finishButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
@@ -182,11 +180,11 @@ public class Sudoku extends JFrame {
 	getContentPane().add(panel);
 
 	JButton btnSave = new JButton("Save");
-	btnSave.setBounds(88, 305, 75, 20);
+	btnSave.setBounds(165, 330, 45, 20);
 	panel.add(btnSave);
 
 	JButton btnLoad = new JButton("Load");
-	btnLoad.setBounds(88, 330, 75, 20);
+	btnLoad.setBounds(211, 330, 45, 20);
 	panel.add(btnLoad);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	this.setSize(320, 384);
@@ -217,7 +215,7 @@ public class Sudoku extends JFrame {
 		    	line = bufferedReader.readLine();
 		    } 
 		    bufferedReader.close(); 
-		    lastTime.setText("last t: " + last_time+"s");
+		    lastTime.setText("Previous time: " + last_time+"s");
         }
 	    catch(FileNotFoundException ex) {
 	        System.out.println(
