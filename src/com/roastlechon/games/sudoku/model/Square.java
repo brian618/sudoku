@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class Square implements Serializable {
 
-    
     /**
-     * Serialization of the square for saving
+     * Serial for saving
      */
-    private static final long serialVersionUID = -1699695250417443410L;
+    private static final long serialVersionUID = -1150920067912435830L;
     public int row;
     public int col;
     public int zone;
     public int value;
     public int index;
+    private boolean isInputSquare;
 
     /**
      * Constructor for square
@@ -37,6 +37,7 @@ public class Square implements Serializable {
 	row = getRow(n);
 	col = getCol(n);
 	zone = getZone(n);
+	isInputSquare = false;
     }
 
     /**
@@ -133,7 +134,20 @@ public class Square implements Serializable {
      * @return string, the value of the square
      */
     public String toString() {
-	return "Square [row = " + row + ", col = " + col + ", zone = " + zone + ", value = " + value;
+	return "Square [row = " + row + ", col = " + col + ", zone = " + zone + ", value = " + value + "]";
     }
 
+    /**
+     * @return boolean, true if it is an input square false otherwise
+     */
+    public boolean isInputSquare() {
+	return isInputSquare;
+    }
+
+    /**
+     * Sets this square to as an input square
+     */
+    public void setInputSquare() {
+	this.isInputSquare = true;
+    }
 }
