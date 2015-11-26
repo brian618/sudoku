@@ -28,12 +28,6 @@ public class SolutionAlgorithm {
 	    for (int j = 0; j < z.getComponents().length; j++) {
 		Field f = (Field) z.getComponents()[j];
 		Square square = f.getSquare();
-		if (f.getValue() == null || f.getValue().equals(0)) {
-		    this.valid = false;
-		    return;
-		}
-		String value = (String) f.getValue();
-		square.setValue(Integer.valueOf(value));
 		allSquares.add(square);
 	    }
 	}
