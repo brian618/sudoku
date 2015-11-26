@@ -185,10 +185,6 @@ public class SolutionAlgorithm {
 	    if (square.row == 1) {
 		rowSquares1.add(square);
 		if (rowSquares1.size() == 9) {
-		    System.out.println("row 1: ");
-		    for (int j = 0; j < rowSquares1.size(); j++) {
-			System.out.println(rowSquares1.get(j));
-		    }
 		    valid = isUnique(rowSquares1);
 		    if (!valid) {
 			return false;
@@ -388,7 +384,7 @@ public class SolutionAlgorithm {
 	List<Integer> list = new ArrayList<Integer>();
 
 	for (int i = 0; i < squares.size(); i++) {
-	    list.add(squares.get(i).getValue());
+	    list.add(squares.get(i).value);
 	}
 
 	Set<Integer> set = new HashSet<Integer>(list);

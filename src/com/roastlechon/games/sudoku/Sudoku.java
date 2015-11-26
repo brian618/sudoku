@@ -39,7 +39,7 @@ public class Sudoku extends JFrame {
     final JLabel lastTime = new JLabel(" ");
 
     final JFrame messageDialog = new JFrame();
-    
+
     final int HARD = 2;
     final int MEDIUM = 1;
     final int EASY = 0;
@@ -47,7 +47,7 @@ public class Sudoku extends JFrame {
     Timer timer;
 
     /**
-     * Constructor for Sudoku
+     * Constructor for Sudoku UI
      */
     public Sudoku() {
     
@@ -56,13 +56,15 @@ public class Sudoku extends JFrame {
     lastTime.setBounds(10,200,80,20);
     
 	timerLabel.setLayout(null);
-	timerLabel.setBounds(10, 225, 40, 20);
+	//timerLabel.setBounds(10, 225, 40, 20);
+	timerLabel.setBounds(7, 305, 75, 20);
 
 	timerField.setHorizontalAlignment(JFormattedTextField.CENTER);
 	timerField.setLayout(null);
 	timerField.setEnabled(true);
 	timerField.setEditable(false);
-	timerField.setBounds(45, 225, 50, 20);
+	//timerField.setBounds(45, 225, 50, 20);
+	timerField.setBounds(10, 330, 59, 20);
 	timerField.setValue("0");
 	timerField.setForeground(Color.BLACK);
 
@@ -73,7 +75,7 @@ public class Sudoku extends JFrame {
 	});
 
 	easyButton.setLayout(null);
-	easyButton.setBounds(100, 200, 30, 20);
+	easyButton.setBounds(165, 305, 45, 20);
 	easyButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
@@ -91,7 +93,7 @@ public class Sudoku extends JFrame {
 	});
 
 	mediumButton.setLayout(null);
-	mediumButton.setBounds(130, 200, 30, 20);
+	mediumButton.setBounds(211, 305, 45, 20);
 	mediumButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
@@ -108,7 +110,7 @@ public class Sudoku extends JFrame {
 	    }
 	});
 	hardButton.setLayout(null);
-	hardButton.setBounds(160, 200, 30, 20);
+	hardButton.setBounds(257, 305, 45, 20);
 	hardButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
@@ -136,7 +138,7 @@ public class Sudoku extends JFrame {
 	 */
 
 	finishButton.setLayout(null);
-	finishButton.setBounds(100, 225, 90, 20);
+	finishButton.setBounds(165, 330, 136, 20);
 	finishButton.setEnabled(false);
 	finishButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
@@ -167,6 +169,8 @@ public class Sudoku extends JFrame {
 	panel.setLayout(null);
 	panel.add(timerLabel);
 	panel.add(timerField);
+	board.setLocation(10, 5);
+	board.setSize(295, 295);
 	panel.add(board);
 	// panel.add(generateButton);
 	panel.add(mediumButton);
@@ -175,9 +179,17 @@ public class Sudoku extends JFrame {
 	panel.add(finishButton);
 	panel.add(lastTime);
 
-	this.add(panel);
+	getContentPane().add(panel);
+
+	JButton btnSave = new JButton("Save");
+	btnSave.setBounds(88, 305, 75, 20);
+	panel.add(btnSave);
+
+	JButton btnLoad = new JButton("Load");
+	btnLoad.setBounds(88, 330, 75, 20);
+	panel.add(btnLoad);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	this.setSize(204, 285);
+	this.setSize(320, 384);
 	this.setLocationRelativeTo(null);
 	this.setTitle("Sudoku");
 	this.setResizable(false);
