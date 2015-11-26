@@ -18,7 +18,7 @@ public class Board extends JPanel {
     public Board() {
 	setLayout(null);
 	setPreferredSize(new Dimension(243, 243));
-	setBounds(0, 0, 243, 243);
+	setBounds(10, 5, 243, 243);
 
 	add(new Zone("1"));
 	add(new Zone("2"));
@@ -40,7 +40,7 @@ public class Board extends JPanel {
     public Board(List<List<Square>> puzzle) {
 	setLayout(null);
 	setPreferredSize(new Dimension(243, 243));
-	setBounds(0, 0, 243, 243);
+	setBounds(10, 5, 243, 243);
 
 	for (int i = 0; i < 9; i++) {
 	    add(new Zone(String.valueOf(i + 1), puzzle.get(i)));
