@@ -3,6 +3,7 @@ package ca.ubc.games.sudoku.test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -132,5 +133,31 @@ public class SolutionAlgorithmTest {
 	c1r1.value = swapVal2;
 	c2r1.value = swapVal1;
 	assertFalse(slnAlg.areValidCols());
+    }
+
+    /**
+     * Test isUnique for unique squares
+     */
+    @Test
+    public void testUniqueSquares() {
+	SolutionAlgorithm sln = new SolutionAlgorithm(new Board(new GenerationAlgorithm().puzzle));
+	List<Square> squares = new ArrayList<Square>();
+	for (int i = 0; i < 9; i++) {
+	    squares.add(new Square(i, i + 1));
+	}
+	assertTrue(sln.isUnique(squares));
+    }
+
+    /**
+     * Test isUnique for non-unique squares
+     */
+    @Test
+    public void testNonUniqueSquares() {
+	SolutionAlgorithm sln = new SolutionAlgorithm(new Board(new GenerationAlgorithm().puzzle));
+	List<Square> squares = new ArrayList<Square>();
+	for (int i = 0; i < 9; i++) {
+	    squares.add(new Square(i, 1));
+	}
+	assertFalse(sln.isUnique(squares));
     }
 }
