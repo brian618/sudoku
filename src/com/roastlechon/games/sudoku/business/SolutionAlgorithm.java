@@ -27,6 +27,9 @@ public class SolutionAlgorithm {
 	    Zone z = (Zone) board.getComponents()[i];
 	    for (int j = 0; j < z.getComponents().length; j++) {
 		Field f = (Field) z.getComponents()[j];
+		if (f.getValue() == null) {
+		    return;
+		}
 		Square square = f.getSquare();
 		allSquares.add(square);
 	    }
