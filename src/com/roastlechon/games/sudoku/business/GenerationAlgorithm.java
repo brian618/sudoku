@@ -125,47 +125,47 @@ public class GenerationAlgorithm {
 
 	List<Square> zoneSquares1 = new ArrayList<Square>();
 	zoneSquares1 = getZoneSquares(squares, 1);
-	//zoneSquares1 = removeSquaresFromZone(zoneSquares1, 0);
+	// zoneSquares1 = removeSquaresFromZone(zoneSquares1, 0);
 	zoneSquares1 = removeSquaresFromZone(zoneSquares1, (4 + difficulty));
 
 	List<Square> zoneSquares2 = new ArrayList<Square>();
 	zoneSquares2 = getZoneSquares(squares, 2);
-	//zoneSquares2 = removeSquaresFromZone(zoneSquares2, 0);
+	// zoneSquares2 = removeSquaresFromZone(zoneSquares2, 0);
 	zoneSquares2 = removeSquaresFromZone(zoneSquares2, (3 + difficulty));
 
 	List<Square> zoneSquares3 = new ArrayList<Square>();
 	zoneSquares3 = getZoneSquares(squares, 3);
-	//zoneSquares3 = removeSquaresFromZone(zoneSquares3, 0);
+	// zoneSquares3 = removeSquaresFromZone(zoneSquares3, 0);
 	zoneSquares3 = removeSquaresFromZone(zoneSquares3, (4 + difficulty));
 
 	List<Square> zoneSquares4 = new ArrayList<Square>();
 	zoneSquares4 = getZoneSquares(squares, 4);
-	//zoneSquares4 = removeSquaresFromZone(zoneSquares4, (0));
+	// zoneSquares4 = removeSquaresFromZone(zoneSquares4, (0));
 	zoneSquares4 = removeSquaresFromZone(zoneSquares4, (4 + difficulty));
 
 	List<Square> zoneSquares5 = new ArrayList<Square>();
 	zoneSquares5 = getZoneSquares(squares, 5);
-	//zoneSquares5 = removeSquaresFromZone(zoneSquares5, 0);
+	// zoneSquares5 = removeSquaresFromZone(zoneSquares5, 0);
 	zoneSquares5 = removeSquaresFromZone(zoneSquares5, (1 + 3 * difficulty));
 
 	List<Square> zoneSquares6 = new ArrayList<Square>();
 	zoneSquares6 = getZoneSquares(squares, 6);
-	//zoneSquares6 = removeSquaresFromZone(zoneSquares6, 0);
+	// zoneSquares6 = removeSquaresFromZone(zoneSquares6, 0);
 	zoneSquares6 = removeSquaresFromZone(zoneSquares6, (4 + difficulty));
 
 	List<Square> zoneSquares7 = new ArrayList<Square>();
 	zoneSquares7 = getZoneSquares(squares, 7);
-	//zoneSquares7 = removeSquaresFromZone(zoneSquares7, 0);
+	// zoneSquares7 = removeSquaresFromZone(zoneSquares7, 0);
 	zoneSquares7 = removeSquaresFromZone(zoneSquares7, (4 + difficulty));
 
 	List<Square> zoneSquares8 = new ArrayList<Square>();
 	zoneSquares8 = getZoneSquares(squares, 8);
-	//zoneSquares8 = removeSquaresFromZone(zoneSquares8, 0);
+	// zoneSquares8 = removeSquaresFromZone(zoneSquares8, 0);
 	zoneSquares8 = removeSquaresFromZone(zoneSquares8, (3 + difficulty));
 
 	List<Square> zoneSquares9 = new ArrayList<Square>();
 	zoneSquares9 = getZoneSquares(squares, 9);
-	//zoneSquares9 = removeSquaresFromZone(zoneSquares9, 1);
+	// zoneSquares9 = removeSquaresFromZone(zoneSquares9, 1);
 	zoneSquares9 = removeSquaresFromZone(zoneSquares9, (4 + difficulty));
 
 	zoneArray.add(zoneSquares1);
@@ -253,6 +253,7 @@ public class GenerationAlgorithm {
 	    int squareIndex = indexesToBeRemoved[i] - 1;
 	    Square tempSquare = squares.get(squareIndex);
 	    tempSquare.setValue(0);
+	    tempSquare.setInputSquare();
 	    squares.set(squareIndex, tempSquare);
 	}
 

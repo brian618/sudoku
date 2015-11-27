@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
@@ -50,11 +54,11 @@ public class Sudoku extends JFrame {
      * Constructor for Sudoku UI
      */
     public Sudoku() {
-    
-    	readFile();
-    lastTime.setLayout(null);
-    lastTime.setBounds(10,305,150,20);
-    
+
+	readFile();
+	lastTime.setLayout(null);
+	lastTime.setBounds(10, 305, 150, 20);
+
 	timerLabel.setLayout(null);
 	timerLabel.setBounds(10, 330, 85, 20);
 
@@ -125,16 +129,6 @@ public class Sudoku extends JFrame {
 	    }
 	});
 
-	/*
-	 * generateButton.setLayout(null); generateButton.setBounds(100, 200,
-	 * 45, 20); generateButton.addActionListener(new ActionListener() {
-	 * public void actionPerformed(ActionEvent e) {
-	 * finishButton.setEnabled(true); panel.remove(board); board = new
-	 * Board(new GenerationAlgorithm().puzzle); panel.add(board);
-	 * panel.revalidate(); panel.repaint(); timerField.setValue("0"); time =
-	 * 1; timer.restart(); transferFocus(); } });
-	 */
-
 	finishButton.setLayout(null);
 	finishButton.setBounds(257, 330, 45, 20);
 	finishButton.setEnabled(false);
@@ -146,14 +140,12 @@ public class Sudoku extends JFrame {
 			timer.stop();
 			JOptionPane.showMessageDialog(messageDialog, "Congratulations, you finished the puzzle in "
 				+ timerField.getValue() + " seconds. Click Generate to play again.");
-		    //save into scores.txt
-			try(PrintWriter output = new PrintWriter(new FileWriter("scores.txt",true))) 
-			{
+			// save into scores.txt
+			try (PrintWriter output = new PrintWriter(new FileWriter("scores.txt", true))) {
 			    output.printf("%s\r\n", timerField.getValue());
-			} 
-			catch (Exception e1) {}
-		    } 
-		    else {
+			} catch (Exception e1) {
+			}
+		    } else {
 			JOptionPane.showMessageDialog(messageDialog,
 				"The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
 		    }
@@ -183,10 +175,44 @@ public class Sudoku extends JFrame {
 	JButton btnSave = new JButton("Save");
 	btnSave.setBounds(165, 330, 45, 20);
 	panel.add(btnSave);
+	btnSave.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		try {
+		    board.save();
+		    saveTime();
+		    JOptionPane.showMessageDialog(messageDialog, "Saved Successfully");
+		} catch (IOException e1) {
+		    JOptionPane.showMessageDialog(messageDialog, "Sorry, cannot create save file");
+		}
+	    }
+	});
 
 	JButton btnLoad = new JButton("Load");
 	btnLoad.setBounds(211, 330, 45, 20);
 	panel.add(btnLoad);
+	btnLoad.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		panel.remove(board);
+		try {
+		    board = board.load();
+		    time = loadTime();
+		} catch (ClassNotFoundException e1) {
+		    JOptionPane.showMessageDialog(messageDialog, "Sorry, the save file has been corrupted");
+		} catch (IOException e1) {
+		    JOptionPane.showMessageDialog(messageDialog, "Sorry, no save file exists");
+		}
+		if (board != null) {
+		    finishButton.setEnabled(true);
+		    panel.add(board);
+		    panel.revalidate();
+		    panel.repaint();
+		    timer.restart();
+		    transferFocus();
+		} else {
+		    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open save file");
+		}
+	    }
+	});
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	//this.setSize(416,500);
 	this.setSize(320, 384);
@@ -199,34 +225,72 @@ public class Sudoku extends JFrame {
     public static void main(String[] args) {
 	new Sudoku();
     }
-    
+
     /**
      * Read scores.txt to get the time from the last game played.
      */
-    private void readFile(){
-        String last_time=null;
-        try{
-	        FileReader fileReader = new FileReader("scores.txt");
-	        BufferedReader bufferedReader = new BufferedReader(fileReader);
-	        
-		    String line = bufferedReader.readLine();
-		    while(line !=null) {
-		    	if(line.length() > 0){
-		    		last_time = line;
-		    	}
-		    	line = bufferedReader.readLine();
-		    } 
-		    bufferedReader.close(); 
-		    lastTime.setText("Previous time: " + last_time+"s");
-        }
-	    catch(FileNotFoundException ex) {
-	        System.out.println(
-	            "Unable to open file");                
+    private void readFile() {
+	String last_time = null;
+	try {
+	    FileReader fileReader = new FileReader("scores.txt");
+	    BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+	    String line = bufferedReader.readLine();
+	    while (line != null) {
+		if (line.length() > 0) {
+		    last_time = line;
+		}
+		line = bufferedReader.readLine();
 	    }
-	    catch(IOException ex) {
-	        System.out.println(
-	            "Error reading file ");                  
+	    bufferedReader.close();
+	    lastTime.setText("Previous time: " + last_time + "s");
+	} catch (FileNotFoundException ex) {
+	    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
+	} catch (IOException ex) {
+	    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open previous time file");
+	}
+    }
+
+    /**
+     * Loads the time of the previous save
+     * 
+     * @return the time loaded from the file
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private int loadTime() throws IOException, ClassNotFoundException {
+	ObjectInputStream ois = null;
+	int time = 0;
+	try {
+	    FileInputStream savedGame = new FileInputStream("saveTime.txt");
+	    ois = new ObjectInputStream(savedGame);
+	    time = (int) ois.readObject();
+	} finally {
+	    if (ois != null) {
+		ois.close();
 	    }
-    	
+	}
+	return time;
+    }
+
+    /**
+     * Loads the time of the previous save
+     * 
+     * @return the time loaded from the file
+     * @throws IOException
+     */
+    private void saveTime() throws IOException {
+	ObjectOutputStream oos = null;
+	try {
+	    FileOutputStream saveTime = new FileOutputStream("saveTime.txt");
+	    oos = new ObjectOutputStream(saveTime);
+
+	    oos.writeObject(time);
+	} finally {
+	    if (oos != null) {
+		oos.flush();
+		oos.close();
+	    }
+	}
     }
 }

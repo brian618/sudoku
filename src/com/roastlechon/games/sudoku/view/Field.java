@@ -18,9 +18,7 @@ public class Field extends JFormattedTextField {
     private static final long serialVersionUID = 8031599756854199153L;
 
     Border border = BorderFactory.createLineBorder(new Color(210, 210, 210));
-    // .createEtchedBorder();
-    // createEmptyBorder();
-    Square square;
+    private Square square;
 
     /**
      * Constructor to create a new empty field
@@ -49,8 +47,12 @@ public class Field extends JFormattedTextField {
 	Dimension dimension = new Dimension(20, 20);
 	this.setPreferredSize(dimension);
 	this.setHorizontalAlignment(JFormattedTextField.CENTER);
-	if (square.value == 0) {
-	    this.setValue(null);
+	if (square.isInputSquare()) {
+	    if (square.value == 0) {
+		this.setValue(null);
+	    } else {
+		this.setValue(String.valueOf(square.value));
+	    }
 	    this.setBorder(border);
 	    this.addKeyListener(new KeyListener() {
 
@@ -100,6 +102,30 @@ public class Field extends JFormattedTextField {
      */
     public Square getSquare() {
 	return this.square;
+    }
+
+    public void reinitializeField(Square loadedSquare) {
+	square = loadedSquare;
+	if (square.value == 0) {
+	    this.setValue(null);
+	    this.setBorder(border);
+	    this.addKeyListener(new KeyListener() {
+
+		public void keyPressed(KeyEvent arg0) {
+
+		}
+
+		public void keyReleased(KeyEvent arg0) {
+		    setCaretPosition(0);
+		}
+
+		public void keyTyped(KeyEvent arg0) {
+		    setCaretPosition(0);
+		    transferFocus();
+		}
+
+	    });
+	}
     }
 
 }
