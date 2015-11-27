@@ -125,16 +125,6 @@ public class Sudoku extends JFrame {
 	    }
 	});
 
-	/*
-	 * generateButton.setLayout(null); generateButton.setBounds(100, 200,
-	 * 45, 20); generateButton.addActionListener(new ActionListener() {
-	 * public void actionPerformed(ActionEvent e) {
-	 * finishButton.setEnabled(true); panel.remove(board); board = new
-	 * Board(new GenerationAlgorithm().puzzle); panel.add(board);
-	 * panel.revalidate(); panel.repaint(); timerField.setValue("0"); time =
-	 * 1; timer.restart(); transferFocus(); } });
-	 */
-
 	finishButton.setLayout(null);
 	finishButton.setBounds(257, 330, 45, 20);
 	finishButton.setEnabled(false);
@@ -196,7 +186,7 @@ public class Sudoku extends JFrame {
 	panel.add(btnLoad);
 	btnLoad.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
-		// panel.remove(board);
+		panel.remove(board);
 		try {
 		    board = board.load();
 		} catch (ClassNotFoundException e1) {
