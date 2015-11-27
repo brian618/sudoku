@@ -55,114 +55,24 @@ public class Sudoku extends JFrame {
      */
     public Sudoku() {
 
-	readFile();
-	lastTime.setLayout(null);
-	lastTime.setBounds(260, 570, 150, 20);
-
-	timerLabel.setLayout(null);
-	timerLabel.setBounds(260, 550, 85, 20);
-
-	timerField.setHorizontalAlignment(JFormattedTextField.CENTER);
-	timerField.setLayout(null);
-	timerField.setEnabled(true);
-	timerField.setEditable(false);
-	timerField.setBounds(350, 550, 59, 20);
-	timerField.setValue("0");
-	timerField.setForeground(Color.BLACK);
-
-	timer = new Timer(delay, new ActionListener() {
-	    public void actionPerformed(ActionEvent evt) {
-		timerField.setValue(time++);
-	    }
-	});
-	
+    panel.setLayout(null);
+    initizalizeTimeLabel();
+    initizalizeTimer();
+	getPreviousTime();
 	initizalizeEasyButton();
 	initizalizeMediumButton();
 	initizalizeHardButton();
+	initizalizeFinishButton();
 
-
-	finishButton.setLayout(null);
-	finishButton.setBounds(380, 500, 90, 40);
-	finishButton.setEnabled(false);
-	finishButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-		if (board.isValid()) {
-		    if (board.isComplete()) {
-			finishButton.setEnabled(false);
-			timer.stop();
-			JOptionPane.showMessageDialog(messageDialog, "Congratulations, you finished the puzzle in "
-				+ timerField.getValue() + " seconds. Click Generate to play again.");
-			// save into scores.txt
-			try (PrintWriter output = new PrintWriter(new FileWriter("scores.txt", true))) {
-			    output.printf("%s\r\n", timerField.getValue());
-			} catch (Exception e1) {
-			}
-		    } else {
-			JOptionPane.showMessageDialog(messageDialog,
-				"The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
-		    }
-		} else {
-		    JOptionPane.showMessageDialog(messageDialog,
-			    "The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
-		}
-	    }
-	});
-
-	panel.setLayout(null);
-	panel.add(timerLabel);
-	panel.add(timerField);
 	board.setLocation(10, 5);
 	board.setSize(475, 475);
 	panel.add(board);
-	panel.add(mediumButton);
-	panel.add(hardButton);
-	panel.add(easyButton);
-	panel.add(finishButton);
-	panel.add(lastTime);
 
 	getContentPane().add(panel);
 
-	JButton btnSave = new JButton("Save");
-	btnSave.setBounds(140, 550, 90, 40);
-	panel.add(btnSave);
-	btnSave.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-		try {
-		    board.save();
-		    saveTime();
-		    JOptionPane.showMessageDialog(messageDialog, "Saved Successfully");
-		} catch (IOException e1) {
-		    JOptionPane.showMessageDialog(messageDialog, "Sorry, cannot create save file");
-		}
-	    }
-	});
-
-	JButton btnLoad = new JButton("Load");
-	btnLoad.setBounds(20, 550, 90, 40);
-	panel.add(btnLoad);
-	btnLoad.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-		panel.remove(board);
-		try {
-		    board = board.load();
-		    time = loadTime();
-		} catch (ClassNotFoundException e1) {
-		    JOptionPane.showMessageDialog(messageDialog, "Sorry, the save file has been corrupted");
-		} catch (IOException e1) {
-		    JOptionPane.showMessageDialog(messageDialog, "Sorry, no save file exists");
-		}
-		if (board != null) {
-		    finishButton.setEnabled(true);
-		    panel.add(board);
-		    panel.revalidate();
-		    panel.repaint();
-		    timer.restart();
-		    transferFocus();
-		} else {
-		    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open save file");
-		}
-	    }
-	});
+	initizalizeSaveButton();
+	initizalizeLoadButton();
+	
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	this.setSize(488,630);
 	//this.setSize(320, 384);
@@ -262,6 +172,7 @@ public class Sudoku extends JFrame {
     		transferFocus();
     	    }
     	});
+    	panel.add(easyButton);
     	
     }
     private void initizalizeMediumButton(){
@@ -281,7 +192,8 @@ public class Sudoku extends JFrame {
     		timer.restart();
     		transferFocus();
     	    }
-    	});  	
+    	}); 
+    	panel.add(mediumButton);
     }
     private void initizalizeHardButton(){
     	hardButton.setLayout(null);
@@ -301,5 +213,109 @@ public class Sudoku extends JFrame {
     		transferFocus();
     	    }
     	});	
+    	panel.add(hardButton);
+    }
+    private void getPreviousTime(){
+    	readFile();
+    	lastTime.setLayout(null);
+    	lastTime.setBounds(260, 570, 150, 20);
+    	panel.add(lastTime);
+    }
+    private void initizalizeTimeLabel(){
+    	timerLabel.setLayout(null);
+    	timerLabel.setBounds(260, 550, 85, 20);	
+    	panel.add(timerLabel);
+    }
+    private void initizalizeSaveButton(){
+    	JButton btnSave = new JButton("Save");
+    	btnSave.setBounds(140, 550, 90, 40);
+    	panel.add(btnSave);
+    	btnSave.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent e) {
+    		try {
+    		    board.save();
+    		    saveTime();
+    		    JOptionPane.showMessageDialog(messageDialog, "Saved Successfully");
+    		} catch (IOException e1) {
+    		    JOptionPane.showMessageDialog(messageDialog, "Sorry, cannot create save file");
+    		}
+    	    }
+    	});
+    }
+    private void initizalizeLoadButton(){
+    	JButton btnLoad = new JButton("Load");
+    	btnLoad.setBounds(20, 550, 90, 40);
+    	panel.add(btnLoad);
+    	btnLoad.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent e) {
+    		panel.remove(board);
+    		try {
+    		    board = board.load();
+    		    time = loadTime();
+    		} catch (ClassNotFoundException e1) {
+    		    JOptionPane.showMessageDialog(messageDialog, "Sorry, the save file has been corrupted");
+    		} catch (IOException e1) {
+    		    JOptionPane.showMessageDialog(messageDialog, "Sorry, no save file exists");
+    		}
+    		if (board != null) {
+    		    finishButton.setEnabled(true);
+    		    panel.add(board);
+    		    panel.revalidate();
+    		    panel.repaint();
+    		    timer.restart();
+    		    transferFocus();
+    		} else {
+    		    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open save file");
+    		}
+    	    }
+    	});	
+    }
+    
+    private void initizalizeTimer(){
+    	timerField.setHorizontalAlignment(JFormattedTextField.CENTER);
+    	timerField.setLayout(null);
+    	timerField.setEnabled(true);
+    	timerField.setEditable(false);
+    	timerField.setBounds(350, 550, 59, 20);
+    	timerField.setValue("0");
+    	timerField.setForeground(Color.BLACK);
+    	panel.add(timerField);
+
+
+    	timer = new Timer(delay, new ActionListener() {
+    	    public void actionPerformed(ActionEvent evt) {
+    		timerField.setValue(time++);
+    	    }
+    	});	
+    }
+    
+    private void initizalizeFinishButton(){
+    	finishButton.setLayout(null);
+    	finishButton.setBounds(380, 500, 90, 40);
+    	finishButton.setEnabled(false);
+    	finishButton.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent e) {
+    		if (board.isValid()) {
+    		    if (board.isComplete()) {
+    			finishButton.setEnabled(false);
+    			timer.stop();
+    			JOptionPane.showMessageDialog(messageDialog, "Congratulations, you finished the puzzle in "
+    				+ timerField.getValue() + " seconds. Click level to play again.");
+    			// save into scores.txt
+    			try (PrintWriter output = new PrintWriter(new FileWriter("scores.txt", true))) {
+    			    output.printf("%s\r\n", timerField.getValue());
+    			} catch (Exception e1) {
+    			}
+    		    } else {
+    			JOptionPane.showMessageDialog(messageDialog,
+    				"The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
+    		    }
+    		} else {
+    		    JOptionPane.showMessageDialog(messageDialog,
+    			    "The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
+    		}
+    	    }
+    	});	
+       	panel.add(finishButton);
     }
 }
