@@ -179,7 +179,7 @@ public class Sudoku extends JFrame {
 		try {
 		    board.save();
 		    saveTime();
-		    System.out.println("game saved");
+		    JOptionPane.showMessageDialog(messageDialog, "Saved Successfully");
 		} catch (IOException e1) {
 		    JOptionPane.showMessageDialog(messageDialog, "Sorry, cannot create save file");
 		}
