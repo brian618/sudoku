@@ -169,6 +169,7 @@ public class Sudoku extends JFrame {
 	panel.add(timerField);
 	board.setLocation(10, 5);
 	board.setSize(295, 295);
+	//board.setSize(350, 350);
 	panel.add(board);
 	// panel.add(generateButton);
 	panel.add(mediumButton);
@@ -187,6 +188,7 @@ public class Sudoku extends JFrame {
 	btnLoad.setBounds(211, 330, 45, 20);
 	panel.add(btnLoad);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	//this.setSize(416,500);
 	this.setSize(320, 384);
 	this.setLocationRelativeTo(null);
 	this.setTitle("Sudoku");
