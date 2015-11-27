@@ -75,60 +75,11 @@ public class Sudoku extends JFrame {
 		timerField.setValue(time++);
 	    }
 	});
+	
+	initizalizeEasyButton();
+	initizalizeMediumButton();
+	initizalizeHardButton();
 
-	easyButton.setLayout(null);
-	easyButton.setBounds(20, 500, 90, 40);
-	//easyButton.setBounds(400, 700, 90, 40);
-	easyButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-		finishButton.setEnabled(true);
-		readFile();
-		panel.remove(board);
-		board = new Board(new GenerationAlgorithm(EASY).puzzle);
-		panel.add(board);
-		panel.revalidate();
-		panel.repaint();
-		timerField.setValue("0");
-		time = 1;
-		timer.restart();
-		transferFocus();
-	    }
-	});
-
-	mediumButton.setLayout(null);
-	mediumButton.setBounds(140, 500, 90, 40);
-	mediumButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-		finishButton.setEnabled(true);
-		readFile();
-		panel.remove(board);
-		board = new Board(new GenerationAlgorithm(MEDIUM).puzzle);
-		panel.add(board);
-		panel.revalidate();
-		panel.repaint();
-		timerField.setValue("0");
-		time = 1;
-		timer.restart();
-		transferFocus();
-	    }
-	});
-	hardButton.setLayout(null);
-	hardButton.setBounds(260, 500, 90, 40);
-	hardButton.addActionListener(new ActionListener() {
-	    public void actionPerformed(ActionEvent e) {
-		finishButton.setEnabled(true);
-		readFile();
-		panel.remove(board);
-		board = new Board(new GenerationAlgorithm(HARD).puzzle);
-		panel.add(board);
-		panel.revalidate();
-		panel.repaint();
-		timerField.setValue("0");
-		time = 1;
-		timer.restart();
-		transferFocus();
-	    }
-	});
 
 	finishButton.setLayout(null);
 	finishButton.setBounds(380, 500, 90, 40);
@@ -291,5 +242,64 @@ public class Sudoku extends JFrame {
 		oos.close();
 	    }
 	}
+    }
+    
+    private void initizalizeEasyButton(){
+    	easyButton.setLayout(null);
+    	easyButton.setBounds(20, 500, 90, 40);
+    	easyButton.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent e) {
+    		finishButton.setEnabled(true);
+    		readFile();
+    		panel.remove(board);
+    		board = new Board(new GenerationAlgorithm(EASY).puzzle);
+    		panel.add(board);
+    		panel.revalidate();
+    		panel.repaint();
+    		timerField.setValue("0");
+    		time = 1;
+    		timer.restart();
+    		transferFocus();
+    	    }
+    	});
+    	
+    }
+    private void initizalizeMediumButton(){
+    	mediumButton.setLayout(null);
+    	mediumButton.setBounds(140, 500, 90, 40);
+    	mediumButton.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent e) {
+    		finishButton.setEnabled(true);
+    		readFile();
+    		panel.remove(board);
+    		board = new Board(new GenerationAlgorithm(MEDIUM).puzzle);
+    		panel.add(board);
+    		panel.revalidate();
+    		panel.repaint();
+    		timerField.setValue("0");
+    		time = 1;
+    		timer.restart();
+    		transferFocus();
+    	    }
+    	});  	
+    }
+    private void initizalizeHardButton(){
+    	hardButton.setLayout(null);
+    	hardButton.setBounds(260, 500, 90, 40);
+    	hardButton.addActionListener(new ActionListener() {
+    	    public void actionPerformed(ActionEvent e) {
+    		finishButton.setEnabled(true);
+    		readFile();
+    		panel.remove(board);
+    		board = new Board(new GenerationAlgorithm(HARD).puzzle);
+    		panel.add(board);
+    		panel.revalidate();
+    		panel.repaint();
+    		timerField.setValue("0");
+    		time = 1;
+    		timer.restart();
+    		transferFocus();
+    	    }
+    	});	
     }
 }
