@@ -28,7 +28,6 @@ import com.roastlechon.games.sudoku.view.Board;
 public class Sudoku extends JFrame {
 
     private static final long serialVersionUID = 9179949591758990253L;
-    final JButton generateButton = new JButton("Generate");
     final JButton finishButton = new JButton("Finish");
     JFormattedTextField timerField = new JFormattedTextField();
     final JLabel timerLabel = new JLabel("Time Elapsed");
@@ -75,7 +74,6 @@ public class Sudoku extends JFrame {
 	
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	this.setSize(488,630);
-	//this.setSize(320, 384);
 	this.setLocationRelativeTo(null);
 	this.setTitle("Sudoku");
 	this.setResizable(false);
@@ -154,6 +152,9 @@ public class Sudoku extends JFrame {
 	}
     }
     
+    /**
+     * Sets up easy button
+     */
     private void initizalizeEasyButton(){
     	easyButton.setLayout(null);
     	easyButton.setBounds(20, 500, 90, 40);
@@ -175,6 +176,11 @@ public class Sudoku extends JFrame {
     	panel.add(easyButton);
     	
     }
+    /**
+     * sets up Medium button
+     * 	puts button on board
+     * 	Sets up action listener
+     */
     private void initizalizeMediumButton(){
     	mediumButton.setLayout(null);
     	mediumButton.setBounds(140, 500, 90, 40);
@@ -195,6 +201,11 @@ public class Sudoku extends JFrame {
     	}); 
     	panel.add(mediumButton);
     }
+    /**
+     * sets up hard button
+     * 	Puts button on board
+     * 	Sets up action listener
+     */
     private void initizalizeHardButton(){
     	hardButton.setLayout(null);
     	hardButton.setBounds(260, 500, 90, 40);
@@ -215,17 +226,27 @@ public class Sudoku extends JFrame {
     	});	
     	panel.add(hardButton);
     }
+    /**
+     * gets the previous game time at start of program
+     */
     private void getPreviousTime(){
     	readFile();
     	lastTime.setLayout(null);
     	lastTime.setBounds(260, 570, 150, 20);
     	panel.add(lastTime);
     }
+    /**
+     * sets up label for timer
+     */
     private void initizalizeTimeLabel(){
     	timerLabel.setLayout(null);
     	timerLabel.setBounds(260, 550, 85, 20);	
     	panel.add(timerLabel);
     }
+    /**
+     * sets up save button at beginning of game
+     * Puts on board, and sets up listener
+     */
     private void initizalizeSaveButton(){
     	JButton btnSave = new JButton("Save");
     	btnSave.setBounds(140, 550, 90, 40);
@@ -242,6 +263,9 @@ public class Sudoku extends JFrame {
     	    }
     	});
     }
+    /**
+     * sets up load button at beginning of game
+     */
     private void initizalizeLoadButton(){
     	JButton btnLoad = new JButton("Load");
     	btnLoad.setBounds(20, 550, 90, 40);
@@ -271,6 +295,9 @@ public class Sudoku extends JFrame {
     	});	
     }
     
+    /**
+     * Sets up timer at beginning of game
+     */
     private void initizalizeTimer(){
     	timerField.setHorizontalAlignment(JFormattedTextField.CENTER);
     	timerField.setLayout(null);
@@ -288,7 +315,10 @@ public class Sudoku extends JFrame {
     	    }
     	});	
     }
-    
+    /**
+     * initizalizes the Finish button.
+     * Sets up listener, and puts button on board
+     */
     private void initizalizeFinishButton(){
     	finishButton.setLayout(null);
     	finishButton.setBounds(380, 500, 90, 40);
