@@ -18,8 +18,10 @@ public class Zone extends JPanel {
 
     Border border = BorderFactory.createLineBorder(Color.GRAY);
 
-    private int h = 92;
-    private int w = 92;
+    //private int h = 92;
+    //private int w = 92;
+    private int h = 150;
+    private int w = 150;
 
     /**
      * Constructor for a zone
