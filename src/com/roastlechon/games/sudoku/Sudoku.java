@@ -4,10 +4,14 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
@@ -174,9 +178,10 @@ public class Sudoku extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		try {
 		    board.save();
+		    saveTime();
+		    System.out.println("game saved");
 		} catch (IOException e1) {
 		    JOptionPane.showMessageDialog(messageDialog, "Sorry, cannot create save file");
-		    e1.printStackTrace();
 		}
 	    }
 	});
@@ -189,6 +194,7 @@ public class Sudoku extends JFrame {
 		panel.remove(board);
 		try {
 		    board = board.load();
+		    time = loadTime();
 		} catch (ClassNotFoundException e1) {
 		    JOptionPane.showMessageDialog(messageDialog, "Sorry, the save file has been corrupted");
 		} catch (IOException e1) {
@@ -199,8 +205,6 @@ public class Sudoku extends JFrame {
 		    panel.add(board);
 		    panel.revalidate();
 		    panel.repaint();
-		    timerField.setValue("0");
-		    time = 1;
 		    timer.restart();
 		    transferFocus();
 		} else {
@@ -239,10 +243,52 @@ public class Sudoku extends JFrame {
 	    bufferedReader.close();
 	    lastTime.setText("Previous time: " + last_time + "s");
 	} catch (FileNotFoundException ex) {
-	    System.out.println("Unable to open file");
+	    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
 	} catch (IOException ex) {
-	    System.out.println("Error reading file ");
+	    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open previous time file");
 	}
+    }
 
+    /**
+     * Loads the time of the previous save
+     * 
+     * @return the time loaded from the file
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    private int loadTime() throws IOException, ClassNotFoundException {
+	ObjectInputStream ois = null;
+	int time = 0;
+	try {
+	    FileInputStream savedGame = new FileInputStream("saveTime.txt");
+	    ois = new ObjectInputStream(savedGame);
+	    time = (int) ois.readObject();
+	} finally {
+	    if (ois != null) {
+		ois.close();
+	    }
+	}
+	return time;
+    }
+
+    /**
+     * Loads the time of the previous save
+     * 
+     * @return the time loaded from the file
+     * @throws IOException
+     */
+    private void saveTime() throws IOException {
+	ObjectOutputStream oos = null;
+	try {
+	    FileOutputStream saveTime = new FileOutputStream("saveTime.txt");
+	    oos = new ObjectOutputStream(saveTime);
+
+	    oos.writeObject(time);
+	} finally {
+	    if (oos != null) {
+		oos.flush();
+		oos.close();
+	    }
+	}
     }
 }

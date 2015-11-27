@@ -106,7 +106,6 @@ public class Board extends JPanel {
 		    oos.writeObject(square);
 		}
 	    }
-	    System.out.println("Game saved");
 	} finally {
 	    oos.flush();
 	    oos.close();
