@@ -24,11 +24,8 @@ public class Board extends JPanel {
      */
     public Board() {
 	setLayout(null);
-	//setPreferredSize(new Dimension(295, 295));
-	//setBounds(10, 5, 295, 295);
 	setPreferredSize(new Dimension(475, 475));
 	setBounds(10, 5, 475, 475);
-
 
 	add(new Zone("1"));
 	add(new Zone("2"));
@@ -49,11 +46,10 @@ public class Board extends JPanel {
      */
     public Board(List<List<Square>> puzzle) {
 	setLayout(null);
-	//setPreferredSize(new Dimension(295, 295));
-	//setBounds(10, 5, 295, 295);
+	// setPreferredSize(new Dimension(295, 295));
+	// setBounds(10, 5, 295, 295);
 	setPreferredSize(new Dimension(475, 475));
 	setBounds(10, 5, 475, 475);
-
 
 	for (int i = 0; i < 9; i++) {
 	    add(new Zone(String.valueOf(i + 1), puzzle.get(i)));
