@@ -32,7 +32,9 @@ public class SolutionAlgorithm {
 		if (square.value == 0) {
 		    String valueInField = (String) f.getValue();
 		    if (valueInField != null) {
-			square.setValue(Integer.valueOf(valueInField));
+			if (!valueInField.equals(" ")) {
+			    square.setValue(Integer.valueOf(valueInField));
+			}
 		    }
 		    System.out.println(square.toString());
 		}
