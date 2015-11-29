@@ -11,7 +11,7 @@ Added time list:
 	medium or hard is pressed.
 Added score:
 	Score is sent to a file. At the start of every game the score is read and best score
-	is put on board. Formula for best score is 1000000 - (2-difficulty)*time.
+	is put on board. Formula for best score is 1000000 - (3-difficulty)*time.
 Fixed bug in solutions algorithm:
 	Ensured that the algorithm was checking zones, rows and columns because 
 	we noticed that it was previously only checking zones

@@ -167,7 +167,7 @@ public class Sudoku extends JFrame {
 			}
 			try (PrintWriter output = new PrintWriter(new FileWriter("best_scores.txt", true))) {
 			    int score = (Integer) timerField.getValue();
-			    score = 1000000 - (2 - level) * score;
+			    score = 1000000 - (3 - level) * score;
 			    output.printf("%s\r\n", score);
 			} catch (Exception e1) {
 			}
