@@ -103,7 +103,9 @@ public class Board extends JPanel {
 		    Square square = f.getSquare();
 		    if (f.getValue() != null && !f.getValue().equals(0)) {
 			String value = (String) f.getValue();
-			square.setValue(Integer.valueOf(value));
+			if (!value.equals(" ")) {
+			    square.setValue(Integer.valueOf(value));
+			}
 		    }
 		    oos.writeObject(square);
 		}
