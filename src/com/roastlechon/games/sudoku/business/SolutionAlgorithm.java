@@ -29,6 +29,13 @@ public class SolutionAlgorithm {
 		Field f = (Field) z.getComponents()[j];
 		Square square = f.getSquare();
 		allSquares.add(square);
+		if (square.value == 0) {
+		    String valueInField = (String) f.getValue();
+		    if (!valueInField.equals(" ")) {
+			square.setValue(Integer.valueOf(valueInField));
+		    }
+		    System.out.println(square.toString());
+		}
 	    }
 	}
 	this.valid = isValid();
