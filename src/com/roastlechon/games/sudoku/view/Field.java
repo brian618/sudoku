@@ -47,7 +47,7 @@ public class Field extends JFormattedTextField {
 	Dimension dimension = new Dimension(20, 20);
 	this.setPreferredSize(dimension);
 	this.setHorizontalAlignment(JFormattedTextField.CENTER);
-	if (square.isInputSquare()) {
+	if (square.value == 0 || square.isInputSquare()) {
 	    if (square.value == 0) {
 		this.setValue(null);
 	    } else {

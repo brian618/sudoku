@@ -12,7 +12,7 @@ import com.roastlechon.games.sudoku.view.Zone;
 
 public class SolutionAlgorithm {
 
-    public boolean valid = false;
+    private boolean valid = false;
     private List<Square> allSquares;
 
     /**
@@ -27,9 +27,6 @@ public class SolutionAlgorithm {
 	    Zone z = (Zone) board.getComponents()[i];
 	    for (int j = 0; j < z.getComponents().length; j++) {
 		Field f = (Field) z.getComponents()[j];
-		if (f.getValue() == null) {
-		    return;
-		}
 		Square square = f.getSquare();
 		allSquares.add(square);
 	    }
@@ -44,12 +41,19 @@ public class SolutionAlgorithm {
      *            List<Square> with squares having values from 1 to 9
      * @return true if valid and false otherwise
      */
-    public boolean isValid() {
+    private boolean isValid() {
 	if (areValidZones() && areValidCols() && areValidRows()) {
 	    return true;
 	} else {
 	    return false;
 	}
+    }
+
+    /**
+     * @return true if board is valid and false otherwise
+     */
+    public boolean getValid() {
+	return this.valid;
     }
 
     /**

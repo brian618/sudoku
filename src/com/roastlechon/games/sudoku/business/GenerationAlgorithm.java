@@ -16,10 +16,15 @@ public class GenerationAlgorithm {
 
     /**
      * Constructor for GenerationAlgorithm
+     * 
+     * @param level,
+     *            int that represents difficulty of the Sudoku 1 - Easy, 2 -
+     *            Medium, 3 - Hard
      */
     public GenerationAlgorithm(int level) {
 	this.squares = generate();
 	this.puzzle = createPuzzle(this.squares, level);
+
     }
 
     /**
