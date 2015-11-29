@@ -79,7 +79,7 @@ public class Board extends JPanel {
      */
     public boolean isComplete() {
 	SolutionAlgorithm sa = new SolutionAlgorithm(this);
-	return sa.valid;
+	return sa.getValid();
     }
 
     /**
