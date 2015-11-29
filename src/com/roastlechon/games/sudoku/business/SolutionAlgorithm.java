@@ -31,8 +31,10 @@ public class SolutionAlgorithm {
 		allSquares.add(square);
 		if (square.value == 0) {
 		    String valueInField = (String) f.getValue();
-		    if (!valueInField.equals(" ")) {
-			square.setValue(Integer.valueOf(valueInField));
+		    if (valueInField != null) {
+			if (!valueInField.equals(" ")) {
+			    square.setValue(Integer.valueOf(valueInField));
+			}
 		    }
 		    System.out.println(square.toString());
 		}
