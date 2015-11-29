@@ -54,9 +54,9 @@ public class Sudoku extends JFrame {
      */
     public Sudoku() {
 
-    panel.setLayout(null);
-    initizalizeTimeLabel();
-    initizalizeTimer();
+	panel.setLayout(null);
+	initizalizeTimeLabel();
+	initizalizeTimer();
 	getPreviousTime();
 	initizalizeEasyButton();
 	initizalizeMediumButton();
@@ -71,9 +71,9 @@ public class Sudoku extends JFrame {
 
 	initizalizeSaveButton();
 	initizalizeLoadButton();
-	
+
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	this.setSize(488,630);
+	this.setSize(488, 630);
 	this.setLocationRelativeTo(null);
 	this.setTitle("Sudoku");
 	this.setResizable(false);
@@ -87,198 +87,201 @@ public class Sudoku extends JFrame {
     /**
      * gets the previous game time at start of program
      */
-    private void getPreviousTime(){
-    	readFile();
-    	lastTime.setLayout(null);
-    	lastTime.setBounds(260, 570, 150, 20);
-    	panel.add(lastTime);
+    private void getPreviousTime() {
+	readFile();
+	lastTime.setLayout(null);
+	lastTime.setBounds(260, 570, 150, 20);
+	panel.add(lastTime);
     }
+
     /**
      * Sets up easy button
      */
-    private void initizalizeEasyButton(){
-    	easyButton.setLayout(null);
-    	easyButton.setBounds(20, 500, 90, 40);
-    	easyButton.addActionListener(new ActionListener() {
-    	    public void actionPerformed(ActionEvent e) {
-    		finishButton.setEnabled(true);
-    		readFile();
-    		panel.remove(board);
-    		board = new Board(new GenerationAlgorithm(EASY).puzzle);
-    		panel.add(board);
-    		panel.revalidate();
-    		panel.repaint();
-    		timerField.setValue("0");
-    		time = 1;
-    		timer.restart();
-    		transferFocus();
-    	    }
-    	});
-    	panel.add(easyButton);	
+    private void initizalizeEasyButton() {
+	easyButton.setLayout(null);
+	easyButton.setBounds(20, 500, 90, 40);
+	easyButton.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		finishButton.setEnabled(true);
+		readFile();
+		panel.remove(board);
+		board = new Board(new GenerationAlgorithm(EASY).puzzle);
+		panel.add(board);
+		panel.revalidate();
+		panel.repaint();
+		timerField.setValue("0");
+		time = 1;
+		timer.restart();
+		transferFocus();
+	    }
+	});
+	panel.add(easyButton);
     }
+
     /**
-     * initizalizes the Finish button.
-     * Sets up listener, and puts button on board
+     * initizalizes the Finish button. Sets up listener, and puts button on
+     * board
      */
-    private void initizalizeFinishButton(){
-    	finishButton.setLayout(null);
-    	finishButton.setBounds(380, 500, 90, 40);
-    	finishButton.setEnabled(false);
-    	finishButton.addActionListener(new ActionListener() {
-    	    public void actionPerformed(ActionEvent e) {
-    		if (board.isValid()) {
-    		    if (board.isComplete()) {
-    			finishButton.setEnabled(false);
-    			timer.stop();
-    			JOptionPane.showMessageDialog(messageDialog, "Congratulations, you finished the puzzle in "
-    				+ timerField.getValue() + " seconds. Click level to play again.");
-    			// save into scores.txt
-    			try (PrintWriter output = new PrintWriter(new FileWriter("scores.txt", true))) {
-    			    output.printf("%s\r\n", timerField.getValue());
-    			} catch (Exception e1) {
-    			}
-    		    } else {
-    			JOptionPane.showMessageDialog(messageDialog,
-    				"The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
-    		    }
-    		} else {
-    		    JOptionPane.showMessageDialog(messageDialog,
-    			    "The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
-    		}
-    	    }
-    	});	
-       	panel.add(finishButton);
+    private void initizalizeFinishButton() {
+	finishButton.setLayout(null);
+	finishButton.setBounds(380, 500, 90, 40);
+	finishButton.setEnabled(false);
+	finishButton.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		if (board.isValid()) {
+		    if (board.isComplete()) {
+			finishButton.setEnabled(false);
+			timer.stop();
+			JOptionPane.showMessageDialog(messageDialog, "Congratulations, you finished the puzzle in "
+				+ timerField.getValue() + " seconds. Click level to play again.");
+			// save into scores.txt
+			try (PrintWriter output = new PrintWriter(new FileWriter("scores.txt", true))) {
+			    output.printf("%s\r\n", timerField.getValue());
+			} catch (Exception e1) {
+			}
+		    } else {
+			JOptionPane.showMessageDialog(messageDialog,
+				"The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
+		    }
+		} else {
+		    JOptionPane.showMessageDialog(messageDialog,
+			    "The sudoku puzzle is not complete. Please check the puzzle and click Finish.");
+		}
+	    }
+	});
+	panel.add(finishButton);
     }
+
     /**
-     * sets up hard button
-     * 	Puts button on board
-     * 	Sets up action listener
+     * sets up hard button Puts button on board Sets up action listener
      */
-    private void initizalizeHardButton(){
-    	hardButton.setLayout(null);
-    	hardButton.setBounds(260, 500, 90, 40);
-    	hardButton.addActionListener(new ActionListener() {
-    	    public void actionPerformed(ActionEvent e) {
-    		finishButton.setEnabled(true);
-    		readFile();
-    		panel.remove(board);
-    		board = new Board(new GenerationAlgorithm(HARD).puzzle);
-    		panel.add(board);
-    		panel.revalidate();
-    		panel.repaint();
-    		timerField.setValue("0");
-    		time = 1;
-    		timer.restart();
-    		transferFocus();
-    	    }
-    	});	
-    	panel.add(hardButton);
-    }  
+    private void initizalizeHardButton() {
+	hardButton.setLayout(null);
+	hardButton.setBounds(260, 500, 90, 40);
+	hardButton.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		finishButton.setEnabled(true);
+		readFile();
+		panel.remove(board);
+		board = new Board(new GenerationAlgorithm(HARD).puzzle);
+		panel.add(board);
+		panel.revalidate();
+		panel.repaint();
+		timerField.setValue("0");
+		time = 1;
+		timer.restart();
+		transferFocus();
+	    }
+	});
+	panel.add(hardButton);
+    }
+
     /**
      * sets up load button at beginning of game
      */
-    private void initizalizeLoadButton(){
-    	JButton btnLoad = new JButton("Load");
-    	btnLoad.setBounds(20, 550, 90, 40);
-    	panel.add(btnLoad);
-    	btnLoad.addActionListener(new ActionListener() {
-    	    public void actionPerformed(ActionEvent e) {
-    		panel.remove(board);
-    		try {
-    		    board = board.load();
-    		    time = loadTime();
-    		} catch (ClassNotFoundException e1) {
-    		    JOptionPane.showMessageDialog(messageDialog, "Sorry, the save file has been corrupted");
-    		} catch (IOException e1) {
-    		    JOptionPane.showMessageDialog(messageDialog, "Sorry, no save file exists");
-    		}
-    		if (board != null) {
-    		    finishButton.setEnabled(true);
-    		    panel.add(board);
-    		    panel.revalidate();
-    		    panel.repaint();
-    		    timer.restart();
-    		    transferFocus();
-    		} else {
-    		    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open save file");
-    		}
-    	    }
-    	});	
+    private void initizalizeLoadButton() {
+	JButton btnLoad = new JButton("Load");
+	btnLoad.setBounds(20, 550, 90, 40);
+	panel.add(btnLoad);
+	btnLoad.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		panel.remove(board);
+		try {
+		    board = board.load();
+		    time = loadTime();
+		} catch (ClassNotFoundException e1) {
+		    JOptionPane.showMessageDialog(messageDialog, "Sorry, the save file has been corrupted");
+		} catch (IOException e1) {
+		    JOptionPane.showMessageDialog(messageDialog, "Sorry, no save file exists");
+		}
+		if (board != null) {
+		    finishButton.setEnabled(true);
+		    panel.add(board);
+		    panel.revalidate();
+		    panel.repaint();
+		    timer.restart();
+		    transferFocus();
+		} else {
+		    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open save file");
+		}
+	    }
+	});
     }
+
     /**
-     * sets up Medium button
-     * 	puts button on board
-     * 	Sets up action listener
+     * sets up Medium button puts button on board Sets up action listener
      */
-    private void initizalizeMediumButton(){
-    	mediumButton.setLayout(null);
-    	mediumButton.setBounds(140, 500, 90, 40);
-    	mediumButton.addActionListener(new ActionListener() {
-    	    public void actionPerformed(ActionEvent e) {
-    		finishButton.setEnabled(true);
-    		readFile();
-    		panel.remove(board);
-    		board = new Board(new GenerationAlgorithm(MEDIUM).puzzle);
-    		panel.add(board);
-    		panel.revalidate();
-    		panel.repaint();
-    		timerField.setValue("0");
-    		time = 1;
-    		timer.restart();
-    		transferFocus();
-    	    }
-    	}); 
-    	panel.add(mediumButton);
+    private void initizalizeMediumButton() {
+	mediumButton.setLayout(null);
+	mediumButton.setBounds(140, 500, 90, 40);
+	mediumButton.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		finishButton.setEnabled(true);
+		readFile();
+		panel.remove(board);
+		board = new Board(new GenerationAlgorithm(MEDIUM).puzzle);
+		panel.add(board);
+		panel.revalidate();
+		panel.repaint();
+		timerField.setValue("0");
+		time = 1;
+		timer.restart();
+		transferFocus();
+	    }
+	});
+	panel.add(mediumButton);
     }
-    
+
     /**
-     * sets up save button at beginning of game
-     * Puts on board, and sets up listener
+     * sets up save button at beginning of game Puts on board, and sets up
+     * listener
      */
-    private void initizalizeSaveButton(){
-    	JButton btnSave = new JButton("Save");
-    	btnSave.setBounds(140, 550, 90, 40);
-    	panel.add(btnSave);
-    	btnSave.addActionListener(new ActionListener() {
-    	    public void actionPerformed(ActionEvent e) {
-    		try {
-    		    board.save();
-    		    saveTime();
-    		    JOptionPane.showMessageDialog(messageDialog, "Saved Successfully");
-    		} catch (IOException e1) {
-    		    JOptionPane.showMessageDialog(messageDialog, "Sorry, cannot create save file");
-    		}
-    	    }
-    	});
+    private void initizalizeSaveButton() {
+	JButton btnSave = new JButton("Save");
+	btnSave.setBounds(140, 550, 90, 40);
+	panel.add(btnSave);
+	btnSave.addActionListener(new ActionListener() {
+	    public void actionPerformed(ActionEvent e) {
+		try {
+		    board.save();
+		    saveTime();
+		    JOptionPane.showMessageDialog(messageDialog, "Saved Successfully");
+		} catch (IOException e1) {
+		    JOptionPane.showMessageDialog(messageDialog, "Sorry, cannot create save file");
+		}
+	    }
+	});
     }
+
     /**
      * sets up label for timer
      */
-    private void initizalizeTimeLabel(){
-    	timerLabel.setLayout(null);
-    	timerLabel.setBounds(260, 550, 85, 20);	
-    	panel.add(timerLabel);
+    private void initizalizeTimeLabel() {
+	timerLabel.setLayout(null);
+	timerLabel.setBounds(260, 550, 85, 20);
+	panel.add(timerLabel);
     }
+
     /**
      * Sets up timer at beginning of game
      */
-    private void initizalizeTimer(){
-    	timerField.setHorizontalAlignment(JFormattedTextField.CENTER);
-    	timerField.setLayout(null);
-    	timerField.setEnabled(true);
-    	timerField.setEditable(false);
-    	timerField.setBounds(350, 550, 59, 20);
-    	timerField.setValue("0");
-    	timerField.setForeground(Color.BLACK);
-    	panel.add(timerField);
+    private void initizalizeTimer() {
+	timerField.setHorizontalAlignment(JFormattedTextField.CENTER);
+	timerField.setLayout(null);
+	timerField.setEnabled(true);
+	timerField.setEditable(false);
+	timerField.setBounds(350, 550, 59, 20);
+	timerField.setValue("0");
+	timerField.setForeground(Color.BLACK);
+	panel.add(timerField);
 
-
-    	timer = new Timer(delay, new ActionListener() {
-    	    public void actionPerformed(ActionEvent evt) {
-    		timerField.setValue(time++);
-    	    }
-    	});	
+	timer = new Timer(delay, new ActionListener() {
+	    public void actionPerformed(ActionEvent evt) {
+		timerField.setValue(time++);
+	    }
+	});
     }
+
     /**
      * Loads the time of the previous save
      * 
@@ -287,44 +290,45 @@ public class Sudoku extends JFrame {
      * @throws ClassNotFoundException
      */
     private int loadTime() throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = null;
-		int time = 0;
-		try {
-		    FileInputStream savedGame = new FileInputStream("saveTime.txt");
-		    ois = new ObjectInputStream(savedGame);
-		    time = (int) ois.readObject();
-		} finally {
-		    if (ois != null) {
-			ois.close();
-		    }
-		}
-		return time;
+	ObjectInputStream ois = null;
+	int time = 0;
+	try {
+	    FileInputStream savedGame = new FileInputStream("saveTime.txt");
+	    ois = new ObjectInputStream(savedGame);
+	    time = (int) ois.readObject();
+	} finally {
+	    if (ois != null) {
+		ois.close();
+	    }
+	}
+	return time;
     }
+
     /**
      * Read scores.txt to get the time from the last game played.
      */
     private void readFile() {
-		String last_time = null;
-		try {
-		    FileReader fileReader = new FileReader("scores.txt");
-		    BufferedReader bufferedReader = new BufferedReader(fileReader);
-	
-		    String line = bufferedReader.readLine();
-		    while (line != null) {
-			if (line.length() > 0) {
-			    last_time = line;
-			}
-			line = bufferedReader.readLine();
-		    }
-		    bufferedReader.close();
-		    lastTime.setText("Previous time: " + last_time + "s");
-		} catch (FileNotFoundException ex) {
-		    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
-		} catch (IOException ex) {
-		    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open previous time file");
+	String last_time = null;
+	try {
+	    FileReader fileReader = new FileReader("scores.txt");
+	    BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+	    String line = bufferedReader.readLine();
+	    while (line != null) {
+		if (line.length() > 0) {
+		    last_time = line;
 		}
+		line = bufferedReader.readLine();
+	    }
+	    bufferedReader.close();
+	    lastTime.setText("Previous time: " + last_time + "s");
+	} catch (FileNotFoundException ex) {
+	    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
+	} catch (IOException ex) {
+	    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open previous time file");
+	}
     }
-    
+
     /**
      * Loads the time of the previous save
      * 
@@ -332,18 +336,18 @@ public class Sudoku extends JFrame {
      * @throws IOException
      */
     private void saveTime() throws IOException {
-		ObjectOutputStream oos = null;
-		try {
-		    FileOutputStream saveTime = new FileOutputStream("saveTime.txt");
-		    oos = new ObjectOutputStream(saveTime);
-	
-		    oos.writeObject(time);
-		} finally {
-		    if (oos != null) {
-			oos.flush();
-			oos.close();
-		    }
-		}
+	ObjectOutputStream oos = null;
+	try {
+	    FileOutputStream saveTime = new FileOutputStream("saveTime.txt");
+	    oos = new ObjectOutputStream(saveTime);
+
+	    oos.writeObject(time);
+	} finally {
+	    if (oos != null) {
+		oos.flush();
+		oos.close();
+	    }
+	}
     }
-    
+
 }

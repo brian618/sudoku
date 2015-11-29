@@ -13,11 +13,11 @@ Fixed bug in solutions algorithm:
 	Ensured that the algorithm was checking zones, rows and columns because 
 	we noticed that it was previously only checking zones
 Added save and load option:
-	buttons were added allowing a player to save the most recent game, and
+	Buttons were added allowing a player to save the most recent game, and
 	load the most previously saved game. Whenever save is pressed, all squares 
-	and there contents as well as time and previous game are saved, so that
-	when a player pressed load the game generated is in the exact same state as
-	when it was previously tested
+	and their contents as well as time and previous game are saved, so that
+	when a player presses load, the game generated is in the exact same state as
+	when it was previously saved.
 Refactoring:
 	Cleaned up code to ensure that it was cleaner and easier to understand.
 	Added comments to reduce confusion between developers.

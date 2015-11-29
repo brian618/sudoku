@@ -13,7 +13,6 @@ public class GenerationAlgorithm {
 
     public List<Square> squares;
     public List<List<Square>> puzzle;
-    // public int difficulty;
 
     /**
      * Constructor for GenerationAlgorithm
@@ -21,7 +20,6 @@ public class GenerationAlgorithm {
     public GenerationAlgorithm(int level) {
 	this.squares = generate();
 	this.puzzle = createPuzzle(this.squares, level);
-	// this.difficulty = level;
     }
 
     /**
@@ -113,10 +111,13 @@ public class GenerationAlgorithm {
     }
 
     /**
-     * Creates a Sudoku puzzle
+     * Creates a Sudoku puzzle based on difficulty provided. 1 - Easy, 2 -
+     * Medium, 3 - Hard
      * 
      * @param squares,
      *            list of all squares in the puzzle
+     * @param difficulty,
+     *            int that determines the difficulty of the program
      * @return List<List<Square>>, a list containing squares separated into 9,
      *         3x3 zones.
      */
@@ -276,7 +277,6 @@ public class GenerationAlgorithm {
 		tempSquares.add(squares.get(i));
 	    }
 	}
-	// System.out.println(tempSquares.toString());
 	return tempSquares;
     }
 

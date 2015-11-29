@@ -89,7 +89,6 @@ public class Field extends JFormattedTextField {
 	try {
 	    fieldFormat = new MaskFormatter("*");
 	} catch (ParseException e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 	fieldFormat.setValidCharacters("123456789 ");
@@ -103,29 +102,4 @@ public class Field extends JFormattedTextField {
     public Square getSquare() {
 	return this.square;
     }
-
-    public void reinitializeField(Square loadedSquare) {
-	square = loadedSquare;
-	if (square.value == 0) {
-	    this.setValue(null);
-	    this.setBorder(border);
-	    this.addKeyListener(new KeyListener() {
-
-		public void keyPressed(KeyEvent arg0) {
-
-		}
-
-		public void keyReleased(KeyEvent arg0) {
-		    setCaretPosition(0);
-		}
-
-		public void keyTyped(KeyEvent arg0) {
-		    setCaretPosition(0);
-		    transferFocus();
-		}
-
-	    });
-	}
-    }
-
 }
