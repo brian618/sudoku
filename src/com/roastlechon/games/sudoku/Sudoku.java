@@ -102,7 +102,6 @@ public class Sudoku extends JFrame {
      * gets the previous game time at start of program
      */
     private void getPreviousTime() {
-	//readFile();
 	lastTime.setLayout(null);
 	lastTime.setBounds(305, 560, 200, 20);
 	panel.add(lastTime);
@@ -118,6 +117,7 @@ public class Sudoku extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
 		level = EASY;
+		readFile();
 		readFileEasy();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(EASY).puzzle);
@@ -194,6 +194,7 @@ public class Sudoku extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
 		level = HARD;
+		readFile();
 		readFileHard();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(HARD).puzzle);
@@ -251,6 +252,7 @@ public class Sudoku extends JFrame {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
 		level = MEDIUM;
+		readFile();
 		readFileMedium();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(MEDIUM).puzzle);
@@ -339,7 +341,9 @@ public class Sudoku extends JFrame {
     }
 
     /**
-     * Read scores.txt to get the time from the last game played.
+     * Read best_scores.txt to get the time from the last game played.
+     * 	@throws: FileNotFoundException
+     * 			IOException
      */
     private void readFile() {
 	int max;

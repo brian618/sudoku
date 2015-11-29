@@ -160,4 +160,66 @@ public class SolutionAlgorithmTest {
 	}
 	assertFalse(sln.isUnique(squares));
     }
+    
+    /**
+     * Test that appropriate number of squares removed
+     */
+    public void testGenerationAlgorithm(){
+    	GenerationAlgorithm gln = new GenerationAlgorithm(0);
+    	List<Square> squares = new ArrayList<Square>();
+    	for (int i = 0; i<9; i++){
+    		squares.add(new Square(i,1));
+    	}
+    	List<Square> after_remove = gln.removeSquaresFromZone(squares, 1);
+    	boolean now = after_remove.size() == 8;
+    	assertTrue(now);
+    }
+    /**
+     * Makes sure that the appropriate number of squares is removed when nothing is removed
+     */
+    public void testRemoveSquare(){
+    	GenerationAlgorithm gln = new GenerationAlgorithm(0);
+    	List<Square> squares = new ArrayList<Square>();
+    	for (int i = 0; i<9; i++){
+    		squares.add(new Square(i,1));
+    	}
+    	List<Square> after_remove = gln.removeSquaresFromZone(squares, 0);
+    	assertFalse(after_remove.size() == 9);
+    }
+    /**
+     * Tests that there are only at most 9 square per zone
+     */
+    
+    public void testNumSquare(){
+    	GenerationAlgorithm gln = new GenerationAlgorithm(0);
+    	List<Square> squares = new ArrayList<Square>();
+    	for (int i = 0; i<81; i++){
+    		squares.add(new Square(i/9,(i%9+1)));
+    	}
+    	List<Square> after_remove = gln.getZoneSquares(squares, 1);
+    	assertTrue(after_remove.size() <= 9);
+    }
+    /**
+     * tests that array of size nine is returned from createArrayofNineRandomNumbers
+     */
+    public void testNineNumbers(){
+    	GenerationAlgorithm gln = new GenerationAlgorithm(0);
+    	@SuppressWarnings("static-access")
+		Integer[] array_now = gln.createArrayOfNineRandomNumbers();
+    	assertTrue(array_now.length == 9);
+    }
+    
+    /**
+     * test that all entries are unique
+     */
+    public void testUnique(){
+    	GenerationAlgorithm gln = new GenerationAlgorithm(0);
+    	@SuppressWarnings("static-access")
+		Integer[] array_now = gln.createArrayOfNineRandomNumbers();
+    	for(int n=0; n<9; n++){
+    		for(int k= n+1; k<9; k++){
+    			assertTrue(array_now[n] != array_now[k]);
+    		}
+    	}
+    }
 }

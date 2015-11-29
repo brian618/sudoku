@@ -5,10 +5,13 @@ Added difficulty setting:
 	Different difficulties were added by modifying the generation algorithm,
 	allowing for a flag to decide which difficulty of game needs to be generated.
 Added time list:
-	A file has been added where the time needed to complete the game is added,
-	at the finish of every game. This file is also used, to display the previous
-	game time on board. This time is recalculated every run as well as when easy,
+	A file has been added for each difficulty where the time needed to complete
+	the game is added, at the finish of every game. This file is also used, to display 
+	the previous game time on board. This time is recalculated every run as well as when easy,
 	medium or hard is pressed.
+Added score:
+	Score is sent to a file. At the start of every game the score is read and best score
+	is put on board. Formula for best score is 1000000 - (2-difficulty)*time.
 Fixed bug in solutions algorithm:
 	Ensured that the algorithm was checking zones, rows and columns because 
 	we noticed that it was previously only checking zones
