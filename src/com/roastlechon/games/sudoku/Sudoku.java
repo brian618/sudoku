@@ -365,7 +365,7 @@ public class Sudoku extends JFrame {
 		line = bufferedReader.readLine();
 	    }
 	    bufferedReader.close();
-	    bestScore.setText("Max: " + max);
+	    bestScore.setText("Best score: " + max);
 	} catch (FileNotFoundException ex) {
 	    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
 	} catch (IOException ex) {
