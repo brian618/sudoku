@@ -37,7 +37,7 @@ public class Square implements Serializable {
 	row = getRow(n);
 	col = getCol(n);
 	zone = getZone(n);
-	isInputSquare = false;
+	isInputSquare = (value == 0) ? true : false;
     }
 
     /**
