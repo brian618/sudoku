@@ -40,12 +40,15 @@ public class Sudoku extends JFrame {
     final JButton mediumButton = new JButton("Medium");
     final JButton hardButton = new JButton("Hard");
     final JLabel lastTime = new JLabel(" ");
+    final JLabel bestScore = new JLabel(" ");
 
     final JFrame messageDialog = new JFrame();
 
     final int HARD = 2;
     final int MEDIUM = 1;
     final int EASY = 0;
+    
+    private int level;
 
     Timer timer;
 
@@ -57,6 +60,7 @@ public class Sudoku extends JFrame {
 	panel.setLayout(null);
 	initizalizeTimeLabel();
 	initizalizeTimer();
+	getBestTime();
 	getPreviousTime();
 	initizalizeEasyButton();
 	initizalizeMediumButton();
@@ -83,14 +87,24 @@ public class Sudoku extends JFrame {
     public static void main(String[] args) {
 	new Sudoku();
     }
+    
+    /**
+     * gets the best score of the game
+     */
+    private void getBestTime(){
+    	readFile();
+    	bestScore.setLayout(null);
+    	bestScore.setBounds(305, 530, 200, 20);
+    	panel.add(bestScore);
+    }
 
     /**
      * gets the previous game time at start of program
      */
     private void getPreviousTime() {
-	readFile();
+	//readFile();
 	lastTime.setLayout(null);
-	lastTime.setBounds(260, 570, 150, 20);
+	lastTime.setBounds(305, 560, 200, 20);
 	panel.add(lastTime);
     }
 
@@ -103,7 +117,8 @@ public class Sudoku extends JFrame {
 	easyButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
-		readFile();
+		level = EASY;
+		readFileEasy();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(EASY).puzzle);
 		panel.add(board);
@@ -121,10 +136,11 @@ public class Sudoku extends JFrame {
     /**
      * initizalizes the Finish button. Sets up listener, and puts button on
      * board
+     * 	@throws: e1 exception if the file cannot be opened.
      */
     private void initizalizeFinishButton() {
 	finishButton.setLayout(null);
-	finishButton.setBounds(380, 500, 90, 40);
+	finishButton.setBounds(210, 550, 90, 40);
 	finishButton.setEnabled(false);
 	finishButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
@@ -135,9 +151,25 @@ public class Sudoku extends JFrame {
 			JOptionPane.showMessageDialog(messageDialog, "Congratulations, you finished the puzzle in "
 				+ timerField.getValue() + " seconds. Click level to play again.");
 			// save into scores.txt
-			try (PrintWriter output = new PrintWriter(new FileWriter("scores.txt", true))) {
+			String filename;
+			if(level == HARD){
+				filename = "timeHard.txt";
+			}
+			else if(level == MEDIUM){
+				filename = "timeMedium.txt";
+			}
+			else{
+				filename = "timeEasy.txt";	
+			}
+			try (PrintWriter output = new PrintWriter(new FileWriter(filename, true))) {
 			    output.printf("%s\r\n", timerField.getValue());
 			} catch (Exception e1) {
+			}
+			try(PrintWriter output = new PrintWriter(new FileWriter("best_scores.txt", true))){
+				int score = (Integer)timerField.getValue();
+				score=1000000 -(2-level)*score;
+				output.printf("%s\r\n", score);
+			}catch (Exception e1) {
 			}
 		    } else {
 			JOptionPane.showMessageDialog(messageDialog,
@@ -157,11 +189,12 @@ public class Sudoku extends JFrame {
      */
     private void initizalizeHardButton() {
 	hardButton.setLayout(null);
-	hardButton.setBounds(260, 500, 90, 40);
+	hardButton.setBounds(210, 500, 90, 40);
 	hardButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
-		readFile();
+		level = HARD;
+		readFileHard();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(HARD).puzzle);
 		panel.add(board);
@@ -213,11 +246,12 @@ public class Sudoku extends JFrame {
      */
     private void initizalizeMediumButton() {
 	mediumButton.setLayout(null);
-	mediumButton.setBounds(140, 500, 90, 40);
+	mediumButton.setBounds(115, 500, 90, 40);
 	mediumButton.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
 		finishButton.setEnabled(true);
-		readFile();
+		level = MEDIUM;
+		readFileMedium();
 		panel.remove(board);
 		board = new Board(new GenerationAlgorithm(MEDIUM).puzzle);
 		panel.add(board);
@@ -238,7 +272,7 @@ public class Sudoku extends JFrame {
      */
     private void initizalizeSaveButton() {
 	JButton btnSave = new JButton("Save");
-	btnSave.setBounds(140, 550, 90, 40);
+	btnSave.setBounds(115, 550, 90, 40);
 	panel.add(btnSave);
 	btnSave.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent e) {
@@ -258,7 +292,7 @@ public class Sudoku extends JFrame {
      */
     private void initizalizeTimeLabel() {
 	timerLabel.setLayout(null);
-	timerLabel.setBounds(260, 550, 85, 20);
+	timerLabel.setBounds(305, 500, 85, 20);
 	panel.add(timerLabel);
     }
 
@@ -270,7 +304,7 @@ public class Sudoku extends JFrame {
 	timerField.setLayout(null);
 	timerField.setEnabled(true);
 	timerField.setEditable(false);
-	timerField.setBounds(350, 550, 59, 20);
+	timerField.setBounds(390, 500, 59, 20);
 	timerField.setValue("0");
 	timerField.setForeground(Color.BLACK);
 	panel.add(timerField);
@@ -308,27 +342,112 @@ public class Sudoku extends JFrame {
      * Read scores.txt to get the time from the last game played.
      */
     private void readFile() {
-	String last_time = null;
+	int max;
+	int temp;
 	try {
-	    FileReader fileReader = new FileReader("scores.txt");
+	    FileReader fileReader = new FileReader("best_scores.txt");
 	    BufferedReader bufferedReader = new BufferedReader(fileReader);
 
 	    String line = bufferedReader.readLine();
+	    max = Integer.parseInt(line);
 	    while (line != null) {
 		if (line.length() > 0) {
-		    last_time = line;
+		    temp = Integer.parseInt(line);
+		    if(temp>max){
+		    	max = temp;
+		    }
 		}
 		line = bufferedReader.readLine();
 	    }
 	    bufferedReader.close();
-	    lastTime.setText("Previous time: " + last_time + "s");
+	    bestScore.setText("Max: " + max);
 	} catch (FileNotFoundException ex) {
 	    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
 	} catch (IOException ex) {
 	    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open previous time file");
 	}
     }
+    
+    /**
+     * reads the file of all of the latest easy times
+     *	 @throws: FileNotFoundException
+     * 	 @throws: IOException
+     */
+    private void readFileEasy(){
+    	String last_time = null;
+    	try {
+    	    FileReader fileReader = new FileReader("timeEasy.txt");
+    	    BufferedReader bufferedReader = new BufferedReader(fileReader);
 
+    	    String line = bufferedReader.readLine();
+    	    while (line != null) {
+    		if (line.length() > 0) {
+    		    last_time = line;
+    		}
+    		line = bufferedReader.readLine();
+    	    }
+    	    bufferedReader.close();
+    	    lastTime.setText("Previous Easy time: " + last_time + "s");
+    	} catch (FileNotFoundException ex) {
+    	    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
+    	} catch (IOException ex) {
+    	    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open previous time file");
+    	}
+    }
+
+    /**
+     * reads the times for the medium file
+     * 	@throws: FileNotFoundException
+     * 			IOException
+     */
+    private void readFileMedium(){
+    	String last_time = null;
+    	try {
+    	    FileReader fileReader = new FileReader("timeMedium.txt");
+    	    BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+    	    String line = bufferedReader.readLine();
+    	    while (line != null) {
+    		if (line.length() > 0) {
+    		    last_time = line;
+    		}
+    		line = bufferedReader.readLine();
+    	    }
+    	    bufferedReader.close();
+    	    lastTime.setText("Previous Med time: " + last_time + "s");
+    	} catch (FileNotFoundException ex) {
+    	    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
+    	} catch (IOException ex) {
+    	    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open previous time file");
+    	}
+    }
+    /**
+     * reads time file for Hard file
+     * 	@throws:FileNotFoundException
+     * 			IOException
+     */
+    private void readFileHard(){
+    	String last_time = null;
+    	try {
+    	    FileReader fileReader = new FileReader("timeHard.txt");
+    	    BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+    	    String line = bufferedReader.readLine();
+    	    while (line != null) {
+    		if (line.length() > 0) {
+    		    last_time = line;
+    		}
+    		line = bufferedReader.readLine();
+    	    }
+    	    bufferedReader.close();
+    	    lastTime.setText("Previous Hard time: " + last_time + "s");
+    	} catch (FileNotFoundException ex) {
+    	    JOptionPane.showMessageDialog(messageDialog, "Sorry, previous time file not found");
+    	} catch (IOException ex) {
+    	    JOptionPane.showMessageDialog(messageDialog, "Sorry, could not open previous time file");
+    	}
+    	
+    }
     /**
      * Loads the time of the previous save
      * 
