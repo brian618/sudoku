@@ -36,7 +36,6 @@ public class SolutionAlgorithm {
 			    square.setValue(Integer.valueOf(valueInField));
 			}
 		    }
-		    System.out.println(square.toString());
 		}
 	    }
 	}
